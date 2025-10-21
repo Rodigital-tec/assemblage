@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes demandes d'aide - Assembl'âge</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="montserrat_responsive.css" rel="stylesheet">
+    <link href="page_styles.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="mobile_fix.css" rel="stylesheet">
+    <link href="header_exact_officiel.css" rel="stylesheet">
+    <link href="header_mobile_improved.css" rel="stylesheet">
+    <link href="icons_complete.css" rel="stylesheet">
+    <style>
+        .help-request-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: box-shadow 0.3s ease;
+        }
+        .help-request-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .status-badge {
+            font-size: 0.8em;
+            padding: 4px 8px;
+        }
+        .status-ouvert { background-color: #28a745; }
+        .status-en_cours { background-color: #ffc107; color: #000; }
+        .status-complete { background-color: #6c757d; }
+        .status-annule { background-color: #dc3545; }
+        .urgent-badge {
+            background-color: #ff4757;
+            color: white;
+            font-size: 0.7em;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header officiel -->
+    <header class="header-official">
+        <div class="header-container-official">
+            <div class="logo-container-official">
+                <a href="index.html" class="logo-link-official">
+                    <img src="logo_assemblage_nouveau.png" alt="Assembl'âge Employeur-Employés" class="logo-img-official">
+                </a>
+            </div>
+            
+            <div class="nav-links-official">
+                <a href="dashboard.html" class="nav-link-official">Tableau de bord</a>
+                <a href="my-service-offers.html" class="nav-link-official">Mes offres</a>
+                <a href="search.html" class="nav-link-official">Recherche</a>
+                <a href="messages.html" class="nav-link-official">Messages</a>
+                <a href="profile.html" class="nav-link-official">Mon profil</a>
+            </div>
+
+            <div class="nav-user-section-official">
+                <span class="user-name-official" id="nav-user-name">Utilisateur</span>
+                <button onclick="logout()" class="btn-deconnexion-official">Déconnexion</button>
+                <button class="btn-notifications-official">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge-official" id="notification-count">0</span>
+                </button>
+            </div>
+
+            <button class="burger-menu-official" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main style="margin-top: 80px;">
+        <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            
+
+            <!-- Main content -->
+            
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2" id="page-title">Mes demandes d'aide</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-success" onclick="openCreateModal()">
+                                <i class="fas fa-plus me-2"></i>Nouvelle demande
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filtres -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <select class="form-select" id="statusFilter" onchange="filterRequests()">
+                            <option value="">Tous les statuts</option>
+                            <option value="ouvert">Ouvert</option>
+                            <option value="en_cours">En cours</option>
+                            <option value="complete">Terminé</option>
+                            <option value="annule">Annulé</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="urgentFilter" onchange="filterRequests()">
+                            <label class="form-check-label" for="urgentFilter">
+                                Urgentes uniquement
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="searchInput" placeholder="Rechercher..." onkeyup="filterRequests()">
+                    </div>
+                </div>
+
+                <!-- Liste des demandes -->
+                <div id="help-requests-container">
+                    <div class="text-center py-5">
+                        <div class="spinner-border text-success" role="status">
+                            <span class="visually-hidden">Chargement...</span>
+                        </div>
+                        <p class="mt-3">Chargement de vos demandes...</p>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+
+    <!-- Modal de création/modification -->
+    <div class="modal fade" id="helpRequestModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Nouvelle demande d'aide</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="helpRequestForm">
+                        <input type="hidden" id="requestId">
+                        
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Titre de la demande *</label>
+                            <input type="text" class="form-control" id="title" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description détaillée *</label>
+                            <textarea class="form-control" id="description" rows="4" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Types de services *</label>
+                            <div id="serviceTypes">
+                                <!-- Les types de services seront chargés dynamiquement -->
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="proposedRate" class="form-label">Tarif proposé (€/h)</label>
+                                    <input type="number" class="form-control" id="proposedRate" min="0" step="0.5">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <div class="form-check mt-4">
+                                        <input class="form-check-input" type="checkbox" id="isUrgent">
+                                        <label class="form-check-label" for="isUrgent">
+                                            <i class="fas fa-exclamation-triangle text-warning me-1"></i>
+                                            Demande urgente
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Créneaux horaires préférés</label>
+                            <div class="row">
+                                <div class="col-6 col-md-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="slot_matin" value="Matin">
+                                        <label class="form-check-label" for="slot_matin">Matin</label>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="slot_midi" value="Midi">
+                                        <label class="form-check-label" for="slot_midi">Midi</label>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="slot_soir" value="Soir">
+                                        <label class="form-check-label" for="slot_soir">Soir</label>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="slot_nuit" value="Nuit">
+                                        <label class="form-check-label" for="slot_nuit">Nuit</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-success" onclick="saveHelpRequest()">
+                        <i class="fas fa-save me-2"></i>Enregistrer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentUser = null;
+        let helpRequests = [];
+        let serviceTypes = [];
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCurrentUser();
+            loadServiceTypes();
+            loadHelpRequests();
+        });
+
+        // Charger les informations de l'utilisateur connecté
+        async function loadCurrentUser() {
+            try {
+                const response = await fetch('/api/current-user');
+                const data = await response.json();
+                if (data.success) {
+                    currentUser = data.user;
+                    updateUIForUserType();
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement de l\'utilisateur:', error);
+            }
+        }
+
+        // Adapter l'interface selon le type d'utilisateur
+        function updateUIForUserType() {
+            if (currentUser && currentUser.user_type === 'aidant') {
+                document.getElementById('page-title').textContent = 'Rechercher des demandes d\'aide';
+                document.getElementById('nav-help-requests').textContent = 'Mes offres de service';
+                document.querySelector('.btn-success').style.display = 'none'; // Masquer le bouton "Nouvelle demande"
+            }
+        }
+
+        // Charger les types de services
+        async function loadServiceTypes() {
+            try {
+                const response = await fetch('/api/service-types');
+                const data = await response.json();
+                if (data.success) {
+                    serviceTypes = data.service_types;
+                    renderServiceTypes();
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des types de services:', error);
+            }
+        }
+
+        // Afficher les types de services dans le modal
+        function renderServiceTypes() {
+            const container = document.getElementById('serviceTypes');
+            container.innerHTML = '';
+            
+            serviceTypes.forEach(service => {
+                const div = document.createElement('div');
+                div.className = 'form-check';
+                div.innerHTML = `
+                    <input class="form-check-input" type="checkbox" id="service_${service.id}" value="${service.id}">
+                    <label class="form-check-label" for="service_${service.id}">
+                        ${service.name}
+                    </label>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Charger les demandes d'aide
+        async function loadHelpRequests() {
+            try {
+                const response = await fetch('/api/help-requests');
+                const data = await response.json();
+                if (data.success) {
+                    helpRequests = data.help_requests;
+                    renderHelpRequests();
+                } else {
+                    showError('Erreur lors du chargement des demandes: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des demandes:', error);
+                showError('Erreur de connexion au serveur');
+            }
+        }
+
+        // Afficher les demandes d'aide
+        function renderHelpRequests(filteredRequests = null) {
+            const container = document.getElementById('help-requests-container');
+            const requests = filteredRequests || helpRequests;
+            
+            if (requests.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-5">
+                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">Aucune demande trouvée</h5>
+                        <p class="text-muted">
+                            ${currentUser && currentUser.user_type === 'senior' 
+                                ? 'Vous n\'avez pas encore créé de demande d\'aide.' 
+                                : 'Aucune demande d\'aide disponible pour le moment.'}
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = requests.map(request => `
+                <div class="help-request-card p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h5 class="mb-1">
+                                ${request.title}
+                                ${request.is_urgent ? '<span class="urgent-badge ms-2">URGENT</span>' : ''}
+                            </h5>
+                            <small class="text-muted">
+                                Créée le ${new Date(request.created_at).toLocaleDateString('fr-FR')}
+                                ${request.senior_name ? ' par ' + request.senior_name : ''}
+                            </small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="badge status-${request.status} status-badge me-2">
+                                ${getStatusLabel(request.status)}
+                            </span>
+                            ${currentUser && currentUser.user_type === 'senior' && currentUser.id === request.senior_id ? `
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#" onclick="editRequest(${request.id})">
+                                            <i class="fas fa-edit me-2"></i>Modifier
+                                        </a></li>
+                                        <li><a class="dropdown-item text-danger" href="#" onclick="deleteRequest(${request.id})">
+                                            <i class="fas fa-trash me-2"></i>Supprimer
+                                        </a></li>
+                                    </ul>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                    
+                    <p class="mb-3">${request.description}</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <small class="text-muted">
+                                <i class="fas fa-tags me-1"></i>
+                                Services: ${request.services && request.services.length > 0 ? 
+                                    request.services.map(s => s.service_type.name).join(', ') : 
+                                    'Non spécifié'}
+                            </small>
+                        </div>
+                        <div class="col-md-6">
+                            ${request.proposed_rate ? `
+                                <small class="text-muted">
+                                    <i class="fas fa-euro-sign me-1"></i>
+                                    Tarif: ${request.proposed_rate}€/h
+                                </small>
+                            ` : ''}
+                        </div>
+                    </div>
+                    
+                    ${request.time_slots && request.time_slots.length > 0 ? `
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                <i class="fas fa-clock me-1"></i>
+                                Créneaux: ${request.time_slots.join(', ')}
+                            </small>
+                        </div>
+                    ` : ''}
+                    
+                    ${currentUser && currentUser.user_type === 'aidant' && request.status === 'ouvert' ? `
+                        <div class="mt-3">
+                            <button class="btn btn-primary btn-sm" onclick="offerHelp(${request.id})">
+                                <i class="fas fa-hand-paper me-2"></i>Proposer mon aide
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Obtenir le libellé du statut
+        function getStatusLabel(status) {
+            const labels = {
+                'ouvert': 'Ouvert',
+                'en_cours': 'En cours',
+                'complete': 'Terminé',
+                'annule': 'Annulé'
+            };
+            return labels[status] || status;
+        }
+
+        // Filtrer les demandes
+        function filterRequests() {
+            const statusFilter = document.getElementById('statusFilter').value;
+            const urgentFilter = document.getElementById('urgentFilter').checked;
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            
+            let filtered = helpRequests.filter(request => {
+                const matchesStatus = !statusFilter || request.status === statusFilter;
+                const matchesUrgent = !urgentFilter || request.is_urgent;
+                const matchesSearch = !searchInput || 
+                    request.title.toLowerCase().includes(searchInput) ||
+                    request.description.toLowerCase().includes(searchInput);
+                
+                return matchesStatus && matchesUrgent && matchesSearch;
+            });
+            
+            renderHelpRequests(filtered);
+        }
+
+        // Ouvrir le modal de création
+        function openCreateModal() {
+            document.getElementById('modalTitle').textContent = 'Nouvelle demande d\'aide';
+            document.getElementById('helpRequestForm').reset();
+            document.getElementById('requestId').value = '';
+            
+            // Décocher tous les services
+            serviceTypes.forEach(service => {
+                const checkbox = document.getElementById(`service_${service.id}`);
+                if (checkbox) checkbox.checked = false;
+            });
+            
+            // Décocher tous les créneaux
+            ['matin', 'midi', 'soir', 'nuit'].forEach(slot => {
+                const checkbox = document.getElementById(`slot_${slot}`);
+                if (checkbox) checkbox.checked = false;
+            });
+            
+            new bootstrap.Modal(document.getElementById('helpRequestModal')).show();
+        }
+
+        // Modifier une demande
+        function editRequest(requestId) {
+            const request = helpRequests.find(r => r.id === requestId);
+            if (!request) return;
+            
+            document.getElementById('modalTitle').textContent = 'Modifier la demande';
+            document.getElementById('requestId').value = request.id;
+            document.getElementById('title').value = request.title;
+            document.getElementById('description').value = request.description;
+            document.getElementById('proposedRate').value = request.proposed_rate || '';
+            document.getElementById('isUrgent').checked = request.is_urgent;
+            
+            // Cocher les services sélectionnés
+            if (request.service_type_ids) {
+                request.service_type_ids.forEach(serviceId => {
+                    const checkbox = document.getElementById(`service_${serviceId}`);
+                    if (checkbox) checkbox.checked = true;
+                });
+            }
+            
+            // Cocher les créneaux sélectionnés
+            if (request.time_slots) {
+                request.time_slots.forEach(slot => {
+                    const checkbox = document.getElementById(`slot_${slot.toLowerCase()}`);
+                    if (checkbox) checkbox.checked = true;
+                });
+            }
+            
+            new bootstrap.Modal(document.getElementById('helpRequestModal')).show();
+        }
+
+        // Sauvegarder une demande
+        async function saveHelpRequest() {
+            const form = document.getElementById('helpRequestForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            
+            const requestId = document.getElementById('requestId').value;
+            const isEdit = !!requestId;
+            
+            // Récupérer les services sélectionnés
+            const selectedServices = [];
+            serviceTypes.forEach(service => {
+                const checkbox = document.getElementById(`service_${service.id}`);
+                if (checkbox && checkbox.checked) {
+                    selectedServices.push(service.id);
+                }
+            });
+            
+            if (selectedServices.length === 0) {
+                showError('Veuillez sélectionner au moins un type de service');
+                return;
+            }
+            
+            // Récupérer les créneaux sélectionnés
+            const selectedSlots = [];
+            ['matin', 'midi', 'soir', 'nuit'].forEach(slot => {
+                const checkbox = document.getElementById(`slot_${slot}`);
+                if (checkbox && checkbox.checked) {
+                    selectedSlots.push(slot);
+                }
+            });
+            
+            const data = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                service_types: selectedServices,
+                proposed_rate: parseFloat(document.getElementById('proposedRate').value) || null,
+                is_urgent: document.getElementById('isUrgent').checked,
+                time_slots: selectedSlots
+            };
+            
+            try {
+                const url = isEdit ? `/api/help-requests/${requestId}` : '/api/help-requests';
+                const method = isEdit ? 'PUT' : 'POST';
+                
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    bootstrap.Modal.getInstance(document.getElementById('helpRequestModal')).hide();
+                    showSuccess(isEdit ? 'Demande modifiée avec succès' : 'Demande créée avec succès');
+                    loadHelpRequests(); // Recharger la liste
+                } else {
+                    showError(result.error || 'Erreur lors de la sauvegarde');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                showError('Erreur de connexion au serveur');
+            }
+        }
+
+        // Supprimer une demande
+        async function deleteRequest(requestId) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer cette demande ?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/help-requests/${requestId}`, {
+                    method: 'DELETE'
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showSuccess('Demande supprimée avec succès');
+                    loadHelpRequests(); // Recharger la liste
+                } else {
+                    showError(result.error || 'Erreur lors de la suppression');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                showError('Erreur de connexion au serveur');
+            }
+        }
+
+        // Proposer son aide (pour les aidants)
+        async function offerHelp(requestId) {
+            try {
+                const response = await fetch(`/api/help-requests/${requestId}/offer`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Je souhaite vous aider avec cette demande.'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showSuccess('Votre offre d\'aide a été envoyée avec succès');
+                    loadHelpRequests(); // Recharger la liste
+                } else {
+                    showError(result.error || 'Erreur lors de l\'envoi de l\'offre');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                showError('Erreur de connexion au serveur');
+            }
+        }
+
+        // Fonctions utilitaires
+        function showSuccess(message) {
+            // Créer une notification de succès
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success alert-dismissible fade show position-fixed';
+            alert.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 5000);
+        }
+
+        function showError(message) {
+            // Créer une notification d'erreur
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-danger alert-dismissible fade show position-fixed';
+            alert.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 5000);
+        }
+
+        function contactAdmin() {
+            alert('Fonctionnalité de contact admin à implémenter');
+        }
+
+        function logout() {
+            localStorage.clear();
+            sessionStorage.clear();
+            fetch('/api/auth/logout', { method: 'POST' })
+                .then(() => {
+                    window.location.href = '/login.html';
+                })
+                .catch(() => {
+                    window.location.href = '/login.html';
+                });
+        }
+
+        function toggleMobileMenu() {
+            const header = document.querySelector('.header-official');
+            const burger = document.querySelector('.burger-menu-official');
+            header.classList.toggle('mobile-menu-open');
+            burger.classList.toggle('active');
+        }
+    </script>
+    </main>
+    
+    <script src="navigation_fixed.js"></script>
+    <script>
+        let currentUser = null;
+        let helpRequests = [];
+        let serviceTypes = [];
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCurrentUser();
+            loadServiceTypes();
+            loadHelpRequests();
+        });
+
+        // Charger les informations de l'utilisateur connecté
+        async function loadCurrentUser() {
+            try {
+                const response = await fetch('/api/current-user');
+                const data = await response.json();
+                if (data.success) {
+                    currentUser = data.user;
+                    updateUIForUserType();
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement de l\'utilisateur:', error);
+            }
+        }
+
+        // Adapter l'interface selon le type d'utilisateur
+        function updateUIForUserType() {
+            if (currentUser && currentUser.user_type === 'aidant') {
+                document.getElementById('page-title').textContent = 'Rechercher des demandes d\'aide';
+                document.getElementById('nav-help-requests').textContent = 'Mes offres de service';
+                document.querySelector('.btn-success').style.display = 'none'; // Masquer le bouton "Nouvelle demande"
+            }
+        }
+
+        // Charger les types de services
+        async function loadServiceTypes() {
+            try {
+                const response = await fetch('/api/service-types');
+                const data = await response.json();
+                if (data.success) {
+                    serviceTypes = data.service_types;
+                    renderServiceTypes();
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des types de services:', error);
+            }
+        }
+
+        // Afficher les types de services dans le modal
+        function renderServiceTypes() {
+            const container = document.getElementById('serviceTypes');
+            container.innerHTML = '';
+            
+            serviceTypes.forEach(service => {
+                const div = document.createElement('div');
+                div.className = 'form-check';
+                div.innerHTML = `
+                    <input class="form-check-input" type="checkbox" id="service_${service.id}" value="${service.id}">
+                    <label class="form-check-label" for="service_${service.id}">
+                        ${service.name}
+                    </label>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Charger les demandes d'aide
+        async function loadHelpRequests() {
+            try {
+                const response = await fetch('/api/help-requests');
+                const data = await response.json();
+                if (data.success) {
+                    helpRequests = data.help_requests;
+                    renderHelpRequests();
+                } else {
+                    showError('Erreur lors du chargement des demandes: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des demandes:', error);
+                showError('Erreur de connexion au serveur');
+            }
+        }
+
+        // Afficher les demandes d'aide
+        function renderHelpRequests(filteredRequests = null) {
+            const container = document.getElementById('help-requests-container');
+            const requests = filteredRequests || helpRequests;
+            
+            if (requests.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-5">
+                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">Aucune demande trouvée</h5>
+                        <p class="text-muted">
+                            ${currentUser && currentUser.user_type === 'senior' 
+                                ? 'Vous n\'avez pas encore créé de demande d\'aide.' 
+                                : 'Aucune demande d\'aide disponible pour le moment.'}
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = requests.map(request => `
+                <div class="help-request-card p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h5 class="mb-1">
+                                ${request.title}
+                                ${request.is_urgent ? '<span class="urgent-badge ms-2">URGENT</span>' : ''}
+                            </h5>
+                            <small class="text-muted">
+                                Créée le ${new Date(request.created_at).toLocaleDateString('fr-FR')}
+                                ${request.senior_name ? ' par ' + request.senior_name : ''}
+                            </small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="badge status-${request.status} status-badge me-2">
+                                ${getStatusLabel(request.status)}
+                            </span>
+                            ${currentUser && currentUser.user_type === 'senior' && currentUser.id === request.senior_id ? `
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#" onclick="editRequest(${request.id})">
+                                            <i class="fas fa-edit me-2"></i>Modifier
+                                        </a></li>
+                                        <li><a class="dropdown-item text-danger" href="#" onclick="deleteRequest(${request.id})">
+                                            <i class="fas fa-trash me-2"></i>Supprimer
+                                        </a></li>
+                                    </ul>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                    
+                    <p class="mb-3">${request.description}</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <small class="text-muted">
+                                <i class="fas fa-tags me-1"></i>
+                                Services: ${request.services && request.services.length > 0 ? 
+                                    request.services.map(s => s.service_type.name).join(', ') : 
+                                    'Non spécifié'}
+                            </small>
+                        </div>
+                        <div class="col-md-6">
+                            ${request.proposed_rate ? `
+                                <small class="text-muted">
+                                    <i class="fas fa-euro-sign me-1"></i>
+                                    Tarif: ${request.proposed_rate}€/h
+                                </small>
+                            ` : ''}
+                        </div>
+                    </div>
+                    
+                    ${request.time_slots && request.time_slots.length > 0 ? `
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                <i class="fas fa-clock me-1"></i>
+                                Créneaux: ${request.time_slots.join(', ')}
+                            </small>
+                        </div>
+                    ` : ''}
+                    
+                    ${currentUser && currentUser.user_type === 'aidant' && request.status === 'ouvert' ? `
+                        <div class="mt-3">
+                            <button class="btn btn-primary btn-sm" onclick="offerHelp(${request.id})">
+                                <i class="fas fa-hand-paper me-2"></i>Proposer mon aide
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Obtenir le libellé du statut
+        function getStatusLabel(status) {
+            const labels = {
+                'ouvert': 'Ouvert',
+                'en_cours': 'En cours',
+                'complete': 'Terminé',
+                'annule': 'Annulé'
+            };
+            return labels[status] || status;
+        }
+
+        // Filtrer les demandes
+        function filterRequests() {
+            const statusFilter = document.getElementById('statusFilter').value;
+            const urgentFilter = document.getElementById('urgentFilter').checked;
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            
+            let filtered = helpRequests.filter(request => {
+                const matchesStatus = !statusFilter || request.status === statusFilter;
+                const matchesUrgent = !urgentFilter || request.is_urgent;
+                const matchesSearch = !searchInput || 
+                    request.title.toLowerCase().includes(searchInput) ||
+                    request.description.toLowerCase().includes(searchInput);
+                
+                return matchesStatus && matchesUrgent && matchesSearch;
+            });
+            
+            renderHelpRequests(filtered);
+        }
+
+        // Ouvrir le modal de création
+        function openCreateModal() {
+            document.getElementById('modalTitle').textContent = 'Nouvelle demande d\'aide';
+            document.getElementById('helpRequestForm').reset();
+            document.getElementById('requestId').value = '';
+            
+            // Décocher tous les services
+            serviceTypes.forEach(service => {
+                const checkbox = document.getElementById(`service_${service.id}`);
+                if (checkbox) checkbox.checked = false;
+            });
+            
+            // Décocher tous les créneaux
+            ['matin', 'midi', 'soir', 'nuit'].forEach(slot => {
+                const checkbox = document.getElementById(`slot_${slot}`);
+                if (checkbox) checkbox.checked = false;
+            });
+            
+            new bootstrap.Modal(document.getElementById('helpRequestModal')).show();
+        }
+
+        // Modifier une demande
+        function editRequest(requestId) {
+            const request = helpRequests.find(r => r.id === requestId);
+            if (!request) return;
+            
+            document.getElementById('modalTitle').textContent = 'Modifier la demande';
+            document.getElementById('requestId').value = request.id;
+            document.getElementById('title').value = request.title;
+            document.getElementById('description').value = request.description;
+            document.getElementById('proposedRate').value = request.proposed_rate || '';
+            document.getElementById('isUrgent').checked = request.is_urgent;
+            
+            // Cocher les services sélectionnés
+            if (request.service_type_ids) {
+                request.service_type_ids.forEach(serviceId => {
+                    const checkbox = document.getElementById(`service_${serviceId}`);
+                    if (checkbox) checkbox.checked = true;
+                });
+            }
+            
+            // Cocher les créneaux sélectionnés
+            if (request.time_slots) {
+                request.time_slots.forEach(slot => {
+                    const checkbox = document.getElementById(`slot_${slot.toLowerCase()}`);
+                    if (checkbox) checkbox.checked = true;
+                });
+            }
+            
+            new bootstrap.Modal(document.getElementById('helpRequestModal')).show();
+        }
+
+        // Sauvegarder une demande
+        async function saveHelpRequest() {
+            const form = document.getElementById('helpRequestForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            
+            const requestId = document.getElementById('requestId').value;
+            const isEdit = !!requestId;
+            
+            // Récupérer les services sélectionnés
+            const selectedServices = [];
+            serviceTypes.forEach(service => {
+                const checkbox = document.getElementById(`service_${service.id}`);
+                if (checkbox && checkbox.checked) {
+                    selectedServices.push(service.id);
+                }
+            });
+            
+            if (selectedServices.length === 0) {
+                showError('Veuillez sélectionner au moins un type de service');
+                return;
+            }
+            
+            // Récupérer les créneaux sélectionnés
+            const selectedSlots = [];
+            ['matin', 'midi', 'soir', 'nuit'].forEach(slot => {
+                const checkbox = document.getElementById(`slot_${slot}`);
+                if (checkbox && checkbox.checked) {
+                    selectedSlots.push(slot);
+                }
+            });
+            
+            const data = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                service_types: selectedServices,
+                proposed_rate: parseFloat(document.getElementById('proposedRate').value) || null,
+                is_urgent: document.getElementById('isUrgent').checked,
+                time_slots: selectedSlots
+            };
+            
+            try {
+                const url = isEdit ? `/api/help-requests/${requestId}` : '/api/help-requests';
+                const method = isEdit ? 'PUT' : 'POST';
+                
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    bootstrap.Modal.getInstance(document.getElementById('helpRequestModal')).hide();
+                    showSuccess(isEdit ? 'Demande modifiée avec succès' : 'Demande créée avec succès');
+                    loadHelpRequests(); // Recharger la liste
+                } else {
+                    showError(result.error || 'Erreur lors de la sauvegarde');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                showError('Erreur de connexion au serveur');
+            }
+        }
+
+        // Supprimer une demande
+        async function deleteRequest(requestId) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer cette demande ?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/help-requests/${requestId}`, {
+                    method: 'DELETE'
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showSuccess('Demande supprimée avec succès');
+                    loadHelpRequests(); // Recharger la liste
+                } else {
+                    showError(result.error || 'Erreur lors de la suppression');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                showError('Erreur de connexion au serveur');
+            }
+        }
+
+        // Proposer son aide (pour les aidants)
+        async function offerHelp(requestId) {
+            try {
+                const response = await fetch(`/api/help-requests/${requestId}/offer`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Je souhaite vous aider avec cette demande.'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showSuccess('Votre offre d\'aide a été envoyée avec succès');
+                    loadHelpRequests(); // Recharger la liste
+                } else {
+                    showError(result.error || 'Erreur lors de l\'envoi de l\'offre');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                showError('Erreur de connexion au serveur');
+            }
+        }
+
+        // Fonctions utilitaires
+        function showSuccess(message) {
+            // Créer une notification de succès
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success alert-dismissible fade show position-fixed';
+            alert.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 5000);
+        }
+
+        function showError(message) {
+            // Créer une notification d'erreur
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-danger alert-dismissible fade show position-fixed';
+            alert.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 5000);
+        }
+
+        function contactAdmin() {
+            alert('Fonctionnalité de contact admin à implémenter');
+        }
+
+        function logout() {
+            localStorage.clear();
+            sessionStorage.clear();
+            fetch('/api/auth/logout', { method: 'POST' })
+                .then(() => {
+                    window.location.href = '/login.html';
+                })
+                .catch(() => {
+                    window.location.href = '/login.html';
+                });
+        }
+
+        function toggleMobileMenu() {
+            const header = document.querySelector('.header-official');
+            const burger = document.querySelector('.burger-menu-official');
+            header.classList.toggle('mobile-menu-open');
+            burger.classList.toggle('active');
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

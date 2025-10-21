@@ -1,0 +1,114 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                    ❌ ERREUR GITHUB ❌                                    ║
+║                                                                            ║
+║                    "failed to push some refs"                             ║
+║                                                                            ║
+║                    Voici la solution !                                    ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+CAUSE DU PROBLEME
+════════════════════════════════════════════════════════════════════════════
+
+GitHub a rejeté votre envoi parce que:
+
+1. Le dépôt GitHub contient des fichiers que vous n'avez pas localement
+2. Ou il y a un conflit de branche
+
+C'est normal ! C'est facile à résoudre.
+
+
+SOLUTION SIMPLE
+════════════════════════════════════════════════════════════════════════════
+
+Ouvrez le terminal et tapez ces commandes une par une:
+
+1. git pull origin main --allow-unrelated-histories
+
+2. git push -u origin main
+
+
+EXPLICATION
+════════════════════════════════════════════════════════════════════════════
+
+La première commande télécharge les fichiers du dépôt GitHub.
+
+La deuxième commande envoie votre code vers GitHub.
+
+
+ETAPES DETAILLEES
+════════════════════════════════════════════════════════════════════════════
+
+Windows:
+────────
+1. Ouvrez le terminal (cmd ou PowerShell)
+2. Allez dans le dossier de votre application:
+   cd C:\Users\Lenovo\Downloads\Technical Specification Sheet Review (4)
+3. Tapez:
+   git pull origin main --allow-unrelated-histories
+4. Tapez:
+   git push -u origin main
+
+
+Mac/Linux:
+──────────
+1. Ouvrez le terminal
+2. Allez dans le dossier de votre application:
+   cd /chemin/vers/votre/application
+3. Tapez:
+   git pull origin main --allow-unrelated-histories
+4. Tapez:
+   git push -u origin main
+
+
+SI VOUS AVEZ TOUJOURS UNE ERREUR
+════════════════════════════════════════════════════════════════════════════
+
+Essayez cette solution:
+
+1. git reset --hard HEAD~1
+2. git pull origin main --allow-unrelated-histories
+3. git push -u origin main
+
+
+SI CELA NE FONCTIONNE TOUJOURS PAS
+════════════════════════════════════════════════════════════════════════════
+
+Supprimez le dépôt local et recommencez:
+
+1. Supprimez le dossier .git:
+   Windows: rmdir /s .git
+   Mac/Linux: rm -rf .git
+
+2. Recommencez:
+   git init
+   git add .
+   git commit -m "Déploiement automatisé de Assembl'âge"
+   git branch -M main
+   git remote add origin https://github.com/Rodigital-tec/assemblage.git
+   git push -u origin main
+
+
+NOTES IMPORTANTES
+════════════════════════════════════════════════════════════════════════════
+
+⚠️  Assurez-vous d'être dans le bon dossier
+
+⚠️  Vérifiez que votre dépôt GitHub est PUBLIC
+
+⚠️  Vérifiez que vous avez accès à Internet
+
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                  ✅ ESSAYEZ CES SOLUTIONS ! ✅                           ║
+║                                                                            ║
+║              Si cela ne fonctionne pas, contactez-moi !                   ║
+║                                                                            ║
+║                    Bonne chance ! 🚀                                      ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+

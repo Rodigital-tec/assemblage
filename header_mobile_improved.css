@@ -1,0 +1,344 @@
+/* CSS amélioré pour le header et le menu mobile - Style cohérent avec le desktop */
+
+/* Forcer l'affichage du header */
+.header-official {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 60px !important;
+    background: white !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+    z-index: 1000 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Container de navigation */
+.nav-container-official {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    height: 100% !important;
+    width: 100% !important;
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+    box-sizing: border-box !important;
+}
+
+/* Logo */
+.nav-logo-official {
+    display: flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+}
+
+.logo-image-official {
+    height: 40px !important;
+    width: auto !important;
+    display: block !important;
+}
+
+/* Navigation desktop */
+.nav-links-official {
+    display: none !important;
+    flex: 1 !important;
+    justify-content: center !important;
+    gap: 25px !important;
+}
+
+.nav-link-official {
+    color: #00A0B0 !important;
+    text-decoration: none !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    padding: 8px 16px !important;
+    border-radius: 4px !important;
+    transition: color 0.2s ease !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+.nav-link-official:hover {
+    color: #666666 !important;
+    background: transparent !important;
+}
+
+.nav-link-official.active {
+    color: #9ACD32 !important;
+    background: transparent !important;
+}
+
+/* Informations utilisateur */
+.nav-user-info {
+    display: none !important;
+    align-items: center !important;
+    gap: 12px !important;
+    flex: 0 0 auto !important;
+}
+
+.user-name {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 14px !important;
+    color: #333 !important;
+    font-weight: 500 !important;
+}
+
+.user-badge {
+    background: #00A0B0 !important;
+    color: white !important;
+    padding: 5px 12px !important;
+    border-radius: 12px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}
+
+.logout-btn {
+    background: #dc3545 !important;
+    color: white !important;
+    border: none !important;
+    padding: 8px 16px !important;
+    border-radius: 4px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: background 0.2s ease !important;
+}
+
+.logout-btn:hover {
+    background: #c82333 !important;
+}
+
+.notification-btn {
+    background: none !important;
+    border: none !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
+    color: #666666 !important;
+    position: relative !important;
+    padding: 5px !important;
+}
+
+.notification-count {
+    background: #dc3545 !important;
+    color: white !important;
+    font-size: 10px !important;
+    padding: 2px 6px !important;
+    border-radius: 10px !important;
+    margin-left: 5px !important;
+}
+
+/* Menu burger mobile */
+.mobile-menu-toggle {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 30px !important;
+    height: 30px !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.mobile-menu-toggle span {
+    display: block !important;
+    width: 25px !important;
+    height: 3px !important;
+    background-color: #00A0B0 !important;
+    margin: 3px 0 !important;
+    transition: all 0.3s ease !important;
+    border-radius: 2px !important;
+}
+
+/* Animation du burger en X */
+.mobile-menu-toggle.open span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px) !important;
+}
+
+.mobile-menu-toggle.open span:nth-child(2) {
+    opacity: 0 !important;
+}
+
+.mobile-menu-toggle.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px) !important;
+}
+
+/* Responsive - Desktop */
+@media (min-width: 769px) {
+    .nav-links-official {
+        display: flex !important;
+    }
+    
+    .nav-user-info {
+        display: flex !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .nav-container-official {
+        padding: 0 15px !important;
+    }
+    
+    .nav-links-official {
+        display: none !important;
+    }
+    
+    .nav-user-info {
+        display: none !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex !important;
+    }
+}
+
+/* Menu mobile ouvert - Style cohérent avec le desktop */
+.mobile-menu {
+    position: fixed !important;
+    top: 60px !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: white !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+    z-index: 999 !important;
+    display: none !important;
+    flex-direction: column !important;
+    padding: 20px !important;
+    gap: 8px !important;
+    max-height: calc(100vh - 60px) !important;
+    overflow-y: auto !important;
+}
+
+.mobile-menu.active {
+    display: flex !important;
+    animation: slideDown 0.3s ease-out !important;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Liens du menu mobile - Style identique au desktop */
+.mobile-menu a {
+    color: #00A0B0 !important;
+    text-decoration: none !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    padding: 14px 16px !important;
+    border-radius: 4px !important;
+    background: transparent !important;
+    border: none !important;
+    transition: color 0.2s ease !important;
+    text-align: left !important;
+    display: block !important;
+}
+
+.mobile-menu a:hover {
+    color: #666666 !important;
+    background: transparent !important;
+}
+
+.mobile-menu a.active {
+    color: #9ACD32 !important;
+    background: transparent !important;
+}
+
+/* Section utilisateur dans le menu mobile */
+.mobile-menu .mobile-user-info {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    padding: 20px 0 10px 0 !important;
+    border-top: 1px solid #e0e0e0 !important;
+    margin-top: 10px !important;
+}
+
+.mobile-menu .mobile-user-badge {
+    background: #00A0B0 !important;
+    color: white !important;
+    padding: 8px 16px !important;
+    border-radius: 12px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    width: fit-content !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.mobile-menu .mobile-logout-btn {
+    background: #dc3545 !important;
+    color: white !important;
+    border: none !important;
+    padding: 12px 16px !important;
+    border-radius: 4px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    transition: background 0.2s ease !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.mobile-menu .mobile-logout-btn:hover {
+    background: #c82333 !important;
+}
+
+.mobile-menu .mobile-notification-btn {
+    background: #f8f9fa !important;
+    border: 1px solid #e0e0e0 !important;
+    padding: 12px 16px !important;
+    border-radius: 4px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    transition: all 0.2s ease !important;
+    font-family: 'Montserrat', sans-serif !important;
+    color: #333 !important;
+}
+
+.mobile-menu .mobile-notification-btn:hover {
+    background: #e9ecef !important;
+}
+
+/* Ajustement du contenu pour le header fixe */
+body {
+    padding-top: 60px !important;
+}
+
+/* Overlay pour fermer le menu en cliquant à l'extérieur */
+.mobile-menu-overlay {
+    position: fixed !important;
+    top: 60px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    z-index: 998 !important;
+    display: none !important;
+}
+
+.mobile-menu-overlay.active {
+    display: block !important;
+}

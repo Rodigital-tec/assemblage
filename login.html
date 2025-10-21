@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Assembl'âge</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="theme_officiel_exact.css" rel="stylesheet">
+    <link href="header_exact_officiel.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-turquoise));
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            padding-top: 60px; /* Espace exact pour le header fixe */
+        }
+        
+        .login-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 60px);
+            padding: 1rem;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            padding: 3rem;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .login-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            color: #6c757d;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-label {
+            font-family: 'Montserrat', sans-serif;
+            display: block;
+            font-weight: 600;
+            color: var(--primary-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            font-family: 'Montserrat', sans-serif;
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: white;
+            box-sizing: border-box;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(154, 205, 50, 0.1);
+        }
+
+        .login-btn {
+            font-family: 'Montserrat', sans-serif;
+            width: 100%;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 1rem;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(154, 205, 50, 0.3);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .back-link {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-turquoise);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .error-message {
+            font-family: 'Montserrat', sans-serif;
+            background: #f8d7da;
+            color: #721c24;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .success-message {
+            font-family: 'Montserrat', sans-serif;
+            background: #d4edda;
+            color: #155724;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .test-accounts {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+
+        .test-accounts h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: var(--primary-gray);
+            margin-bottom: 1rem;
+        }
+
+        .test-account {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--light-gray);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .test-account:hover {
+            background: #e9ecef;
+        }
+
+        .test-account strong {
+            color: var(--primary-green);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 80px;
+            }
+            
+            .login-container {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            .login-container {
+                padding: 1.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="main-navigation">
+        <div class="nav-content-official">
+            <div class="nav-logo-official">
+                <a href="index.html" class="logo-link-official">
+                    <img src="logo_assemblage_nouveau.png" alt="Assembl'âge Employeur-Employés" class="logo-img-official">
+                </a>
+            </div>
+            
+            <div class="nav-links-official">
+                <a href="index.html" class="nav-btn-official">Accueil</a>
+                <a href="#services" class="nav-btn-official">Services</a>
+                <a href="#comment-ca-marche" class="nav-btn-official">Comment ça marche</a>
+                <a href="login.html" class="nav-btn-contact">Contact</a>
+            </div>
+
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+    <div class="login-wrapper">
+        <div class="login-container">
+        <div class="login-logo">A</div>
+        <h1 class="login-title">Connexion</h1>
+        <p class="login-subtitle">Accédez à votre espace Assembl'âge</p>
+
+        <div id="message-container"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+
+            <button type="submit" class="login-btn" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i>
+                Se connecter
+            </button>
+        </form>
+
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Retour à l'accueil
+        </a>
+
+        <div class="test-accounts">
+            <h4>Comptes de test</h4>
+            <div class="test-account" onclick="fillCredentials('marie.dupont@email.com', 'senior123')">
+                <strong>Senior:</strong> marie.dupont@email.com / senior123
+            </div>
+            <div class="test-account" onclick="fillCredentials('sophie.leroy@email.com', 'aidant123')">
+                <strong>Aidant:</strong> sophie.leroy@email.com / aidant123
+            </div>
+            <div class="test-account" onclick="fillCredentials('admin@assemblage.com', 'admin123')">
+                <strong>Admin:</strong> admin@assemblage.com / admin123
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="navigation_fixed.js"></script>
+    <script>
+        function showMessage(message, type = 'error') {
+            const container = document.getElementById('message-container');
+            const className = type === 'error' ? 'error-message' : 'success-message';
+            container.innerHTML = `<div class="${className}">${message}</div>`;
+            
+            // Faire disparaître le message après 5 secondes
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+
+        function fillCredentials(email, password) {
+            document.getElementById('email').value = email;
+            document.getElementById('password').value = password;
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const loginBtn = document.getElementById('loginBtn');
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Désactiver le bouton pendant la requête
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion...';
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showMessage('Connexion réussie ! Redirection...', 'success');
+                    
+                    // Stocker les informations utilisateur
+                    localStorage.setItem('userType', data.user.user_type);
+                    localStorage.setItem('userName', data.user.first_name);
+                    localStorage.setItem('userEmail', data.user.email);
+                    localStorage.setItem('isAuthenticated', 'true');
+                    
+                    // Rediriger après un court délai
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 1000);
+                } else {
+                    showMessage(data.error || 'Erreur de connexion');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                showMessage('Erreur de connexion. Veuillez réessayer.');
+            } finally {
+                // Réactiver le bouton
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Se connecter';
+            }
+        });
+
+        // Vérifier si l'utilisateur est déjà connecté
+        fetch('/api/auth/check-auth')
+            .then(response => response.json())
+            .then(data => {
+                if (data.authenticated) {
+                    // Rediriger vers le dashboard si déjà connecté
+                    const redirectUrl = data.user.user_type === 'admin' ? '/admin.html' : '/dashboard.html';
+                    window.location.href = redirectUrl;
+                }
+            })
+            .catch(error => {
+                console.log('Pas encore connecté');
+            });
+            
+        // Fonction pour le menu burger mobile
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links-official');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (navLinks && menuToggle) {
+                navLinks.classList.toggle('mobile-open');
+                menuToggle.classList.toggle('open');
+            }
+        }
+    </script>
+</body>
+</html>
+

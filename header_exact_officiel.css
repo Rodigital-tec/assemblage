@@ -1,0 +1,489 @@
+/* Header exact du site officiel Assembl'âge - Reproduction du screenshot */
+
+/* Reset et base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navigation principale - Style exact du screenshot */
+.main-navigation, .header-official {
+    background-color: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid #e5e5e5 !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 1000 !important;
+    font-family: 'Montserrat', sans-serif !important;
+    height: 60px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* Container de navigation exact - pleine largeur */
+.nav-content-official, .nav-container-official {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    height: 100% !important;
+    width: 100% !important;
+    padding: 0 10px !important;
+    box-sizing: border-box !important;
+}
+
+/* Logo à gauche - collé au bord */
+.nav-logo-official {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    flex: 0 0 auto;
+}
+
+.logo-link-official {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333333;
+    background: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+}
+
+/* Image du logo officiel */
+.logo-img-official {
+    height: 60px;
+    width: auto;
+    max-width: 300px;
+    display: block;
+}
+
+/* Navigation à droite - collée au bord */
+.nav-links-official {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-left: auto;
+    padding: 0;
+    flex: 0 0 auto;
+    justify-content: flex-start;
+}
+
+/* Liens de navigation style exact */
+.nav-btn-official {
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 0;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    background: none !important;
+    background-color: transparent !important;
+    border: none;
+    border-radius: 0;
+    transition: color 0.2s ease;
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative;
+}
+
+/* Couleurs spécifiques pour chaque lien */
+.nav-btn-official.nav-accueil {
+    color: #9ACD32;
+}
+
+.nav-btn-official.nav-publications {
+    color: #00A0B0;
+}
+
+.nav-btn-official.nav-missions {
+    color: #00A0B0;
+}
+
+.nav-btn-official.nav-qui-sommes {
+    color: #00A0B0;
+}
+
+.nav-btn-official.nav-prestations {
+    color: #00A0B0;
+}
+
+.nav-btn-official.nav-devenir {
+    color: #00A0B0;
+}
+
+.nav-btn-official.nav-partenaires {
+    color: #00A0B0;
+}
+
+/* Bouton Contact spécial à droite */
+.nav-btn-contact {
+    background-color: #9ACD32 !important;
+    color: #ffffff !important;
+    padding: 12px 24px !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    margin-left: 20px;
+}
+
+/* Effets de survol - changement de couleur vers gris uniquement */
+.nav-btn-official:hover,
+.nav-btn-official:focus,
+.nav-btn-official:active {
+    color: #666666 !important;
+    background: none !important;
+    background-color: transparent !important;
+    outline: none !important;
+}
+
+.nav-btn-contact:hover {
+    color: #666666 !important;
+    background-color: #9ACD32 !important;
+}
+
+/* Adaptation pour l'application - version authentifiée */
+.nav-btn-official.nav-dashboard {
+    color: #9ACD32;
+}
+
+.nav-btn-official.nav-offers {
+    color: #00A0B0;
+}
+
+.nav-btn-official.nav-search {
+    color: #00A0B0;
+}
+
+.nav-btn-official.nav-messages {
+    color: #00A0B0;
+}
+
+.nav-btn-official.nav-profile {
+    color: #00A0B0;
+}
+
+/* Informations utilisateur - style épuré */
+.nav-user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    background: none;
+    border: none;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.user-name-official {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333333;
+}
+
+.user-type-official {
+    font-size: 12px;
+    color: #ffffff;
+    background-color: #00A0B0;
+    padding: 4px 8px;
+    border-radius: 12px;
+    text-transform: capitalize;
+}
+
+/* Bouton de déconnexion */
+.nav-btn-logout {
+    background-color: #dc3545 !important;
+    color: #ffffff !important;
+    padding: 8px 16px !important;
+    border-radius: 6px !important;
+    font-size: 13px !important;
+    margin-left: 10px;
+}
+
+/* Compteur de messages */
+.message-count {
+    background-color: #dc3545;
+    color: #ffffff;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 5px;
+    min-width: 16px;
+    text-align: center;
+}
+
+/* Menu mobile */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: none !important;
+    border: none !important;
+    padding: 10px;
+    cursor: pointer;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.mobile-menu-toggle span {
+    display: block !important;
+    width: 25px !important;
+    height: 3px !important;
+    background: #00A0B0 !important;
+    background-color: #00A0B0 !important;
+    margin: 3px 0 !important;
+    transition: 0.3s;
+    border: none !important;
+    border-radius: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e5e5;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.mobile-menu.active {
+    display: flex;
+}
+
+.mobile-menu .nav-link {
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #333333;
+    border-bottom: 1px solid #e5e5e5;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    cursor: pointer;
+}
+
+.mobile-menu .nav-link:hover {
+    color: #666666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links-official {
+        display: none;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
+    .nav-content-official {
+        padding: 0 15px;
+    }
+    
+    .logo-text-official {
+        font-size: 20px;
+    }
+    
+    .logo-icon-official {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-content-official {
+        padding: 0 10px;
+    }
+    
+    .logo-text-official {
+        font-size: 18px;
+    }
+    
+    .logo-icon-official {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .logo-icon-official::before {
+        font-size: 16px;
+    }
+}
+
+/* Corrections pour l'intégration */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+main {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/* Assurer que le contenu ne soit pas caché sous le header */
+.hero-section {
+    margin-top: 0;
+    padding-top: 20px;
+}
+
+/* Style pour les pages avec header fixe */
+.main-navigation {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+
+/* Menu burger pour mobile */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 35px;
+    height: 35px;
+    background: transparent;
+    border: 2px solid #333333;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 10;
+    margin-left: 10px;
+}
+
+.mobile-menu-toggle span {
+    width: 20px;
+    height: 3px;
+    background: #333333;
+    border-radius: 2px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: center;
+    display: block;
+}
+
+.mobile-menu-toggle.open span:first-child {
+    transform: rotate(45deg);
+}
+
+.mobile-menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.mobile-menu-toggle.open span:nth-child(3) {
+    transform: rotate(-45deg);
+}
+
+/* Navigation mobile */
+.nav-links-official.mobile-open {
+    display: flex !important;
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-top: 1px solid #e5e5e5;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 9;
+}
+
+.nav-links-official.mobile-open .nav-btn-official {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    .nav-content-official {
+        padding: 0 20px;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+    }
+    
+    .nav-links-official {
+        display: none !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex !important;
+        order: 3;
+        flex-shrink: 0;
+    }
+    
+    .nav-user-info {
+        margin-left: auto;
+        margin-right: 10px;
+        order: 2;
+        flex-shrink: 0;
+    }
+    
+    .nav-logo-official {
+        order: 1;
+        flex-shrink: 0;
+    }
+    
+    .logo-img-official {
+        height: 50px !important;
+        max-width: 200px !important;
+        display: block !important;
+    }
+    
+    .nav-btn-logout {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .nav-content-official {
+        padding: 0 15px;
+    }
+    
+    .logo-img-official {
+        height: 40px !important;
+        max-width: 150px !important;
+    }
+    
+    .user-name-official {
+        display: none !important;
+    }
+    
+    .user-badge-official {
+        font-size: 10px;
+        padding: 2px 6px;
+    }
+    
+    .nav-btn-logout {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex !important;
+        width: 30px;
+        height: 30px;
+    }
+}

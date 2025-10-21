@@ -1,0 +1,134 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                    📦 CREER LE DEPOT GITHUB 📦                            ║
+║                                                                            ║
+║                    Guide ULTRA SIMPLE !                                   ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+ETAPE 1: CREER UN COMPTE GITHUB
+════════════════════════════════════════════════════════════════════════════
+
+Si vous n'avez pas de compte GitHub:
+
+1. Allez sur: https://github.com/signup
+2. Entrez votre email
+3. Créez un mot de passe
+4. Choisissez un nom d'utilisateur
+5. Cliquez sur "Create account"
+6. Vérifiez votre email
+
+
+ETAPE 2: CREER UN NOUVEAU DEPOT
+════════════════════════════════════════════════════════════════════════════
+
+1. Allez sur: https://github.com/new
+2. Remplissez les champs:
+
+   Repository name:        assemblage
+   Description:            Application Assembl'âge
+   Public:                 ✓ (IMPORTANT: Cochez "Public")
+   Initialize repository:  ☐ (Ne cochez PAS)
+
+3. Cliquez sur "Create repository"
+
+
+ETAPE 3: COPIER L'URL DU DEPOT
+════════════════════════════════════════════════════════════════════════════
+
+Après avoir créé le dépôt, vous verrez une page avec:
+
+"Quick setup — if you've done this kind of thing before"
+
+Copiez l'URL qui ressemble à:
+
+    https://github.com/VOTRE_USERNAME/assemblage.git
+
+Vous en aurez besoin pour le script !
+
+
+ETAPE 4: LANCER LE SCRIPT DE DEPLOIEMENT
+════════════════════════════════════════════════════════════════════════════
+
+Maintenant que le dépôt existe, lancez le script:
+
+Windows:
+────────
+Double-cliquez sur: deploy.bat
+
+OU tapez dans le terminal:
+deploy.bat
+
+
+Mac/Linux:
+──────────
+Ouvrez le terminal et tapez:
+bash deploy.sh
+
+
+ETAPE 5: ENTRER VOTRE NOM D'UTILISATEUR GITHUB
+════════════════════════════════════════════════════════════════════════════
+
+Le script vous demandera:
+
+"Entrez votre nom d'utilisateur GitHub: "
+
+Tapez votre nom d'utilisateur (par exemple: jean123)
+
+Le script fera le reste automatiquement !
+
+
+ETAPE 6: VERIFIER QUE LE CODE EST SUR GITHUB
+════════════════════════════════════════════════════════════════════════════
+
+1. Allez sur: https://github.com/VOTRE_USERNAME/assemblage
+2. Vous devriez voir tous vos fichiers
+3. Si oui, c'est bon ! ✅
+
+
+ETAPE 7: DEPLOYER SUR RENDER
+════════════════════════════════════════════════════════════════════════════
+
+Maintenant que votre code est sur GitHub:
+
+1. Allez sur: https://render.com
+2. Connectez-vous avec GitHub
+3. Cliquez sur "New +" puis "Web Service"
+4. Vous devriez voir votre dépôt "assemblage" dans la liste
+5. Sélectionnez-le
+6. Configurez et déployez
+
+
+RESUME
+════════════════════════════════════════════════════════════════════════════
+
+1. Créer un compte GitHub (si nécessaire)
+2. Créer un dépôt "assemblage" sur GitHub
+3. Lancer le script deploy.bat ou deploy.sh
+4. Entrer votre nom d'utilisateur GitHub
+5. Attendre que le script envoie votre code
+6. Aller sur Render et déployer
+
+
+NOTES IMPORTANTES
+════════════════════════════════════════════════════════════════════════════
+
+⚠️  Le dépôt DOIT être PUBLIC (pas privé)
+
+⚠️  Ne cochez PAS "Initialize repository" lors de la création
+
+⚠️  Attendez que le script termine avant d'aller sur Render
+
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                  ✅ C'EST TOUT ! C'EST SIMPLE ! ✅                        ║
+║                                                                            ║
+║              Créez le dépôt, lancez le script, puis Render !              ║
+║                                                                            ║
+║                    Bonne chance ! 🚀                                      ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+

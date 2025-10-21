@@ -1,0 +1,47 @@
+<!-- Modal Signaler un Message -->
+<div class="modal-overlay" id="reportMessageModal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>⚠️ Signaler ce message</h3>
+            <button class="modal-close" onclick="hideReportMessageModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <p>Pourquoi signalez-vous ce message ?</p>
+            <div class="form-group">
+                <select class="form-input" id="reportReason">
+                    <option value="">Sélectionnez une raison</option>
+                    <option value="inappropriate">Contenu inapproprié</option>
+                    <option value="harassment">Harcèlement</option>
+                    <option value="spam">Spam</option>
+                    <option value="scam">Arnaque / Fraude</option>
+                    <option value="other">Autre</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <textarea class="form-textarea" placeholder="Détails (optionnel)" id="reportDetails" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-secondary" onclick="hideReportMessageModal()">Annuler</button>
+            <button class="btn-primary" onclick="submitReportMessage()">Signaler</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Bloquer un Utilisateur -->
+<div class="modal-overlay" id="blockUserModal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>🚫 Bloquer cet utilisateur</h3>
+            <button class="modal-close" onclick="hideBlockUserModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <p><strong>Êtes-vous sûr de vouloir bloquer <span id="blockUserName"></span> ?</strong></p>
+            <p>Vous ne recevrez plus de messages de cet utilisateur et il ne pourra plus voir votre profil.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-secondary" onclick="hideBlockUserModal()">Annuler</button>
+            <button class="btn-primary btn-danger" onclick="submitBlockUser()">Bloquer</button>
+        </div>
+    </div>
+</div>

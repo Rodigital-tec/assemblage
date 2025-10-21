@@ -1,0 +1,300 @@
+            }
+            
+            .admin-stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-top-bar {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .admin-user-info {
+                justify-content: center;
+            }
+            
+            .admin-table {
+                font-size: 0.875rem;
+            }
+            
+            .admin-table th,
+            .admin-table td {
+                padding: 0.75rem 1rem;
+            }
+        }
+        
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .admin-animate-slide-up {
+            animation: slideInUp 0.6s ease-out;
+        }
+        
+        .admin-animate-fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+    </style>
+    <link href="responsive_navigation.css" rel="stylesheet">
+    <link href="mobile_fix.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar Administration -->
+    <div class="admin-sidebar" id="admin-sidebar">
+        <div class="admin-sidebar-header">
+            <img src="logo.png" alt="Assembl'âge" class="admin-logo">
+            <h2 class="admin-title">Administration</h2>
+            <p class="admin-subtitle">Panneau de contrôle</p>
+        </div>
+        
+        <nav class="admin-nav">
+            <div class="admin-nav-item">
+                <a href="#" class="admin-nav-link active" onclick="showAdminSection('dashboard')">
+                    <i class="admin-nav-icon fas fa-tachometer-alt"></i>
+                    <span>Tableau de bord</span>
+                </a>
+            </div>
+            
+            <div class="admin-nav-item">
+                <a href="#" class="admin-nav-link" onclick="showAdminSection('users')">
+                    <i class="admin-nav-icon fas fa-users"></i>
+                    <span>Utilisateurs</span>
+                </a>
+            </div>
+            
+            <div class="admin-nav-item">
+                <a href="#" class="admin-nav-link" onclick="showAdminSection('service-types')">
+                    <i class="admin-nav-icon fas fa-cogs"></i>
+                    <span>Types de services</span>
+                </a>
+            </div>
+            
+            <div class="admin-nav-item">
+                <a href="#" class="admin-nav-link" onclick="showAdminSection('help-requests')">
+                    <i class="admin-nav-icon fas fa-hand-holding-heart"></i>
+                    <span>Demandes d'aide</span>
+                </a>
+            </div>
+            
+            <div class="admin-nav-item">
+                <a href="#" class="admin-nav-link" onclick="showAdminSection('service-offers')">
+                    <i class="admin-nav-icon fas fa-hands-helping"></i>
+                    <span>Offres de services</span>
+                </a>
+            </div>
+            
+            <div class="admin-nav-item">
+                <a href="#" class="admin-nav-link" onclick="showAdminSection('messages')">
+                    <i class="admin-nav-icon fas fa-envelope"></i>
+                    <span>Messages</span>
+                </a>
+            </div>
+            
+            <div class="admin-nav-item">
+                <a href="#" class="admin-nav-link" onclick="showAdminSection('config')">
+                    <i class="admin-nav-icon fas fa-cog"></i>
+                    <span>Configuration</span>
+                </a>
+            </div>
+            
+            <div class="admin-nav-item">
+                <a href="#" class="admin-nav-link" onclick="showAdminSection('logs')">
+                    <i class="admin-nav-icon fas fa-file-alt"></i>
+                    <span>Logs système</span>
+                </a>
+            </div>
+            
+            <hr class="my-3" style="border-color: rgba(255, 255, 255, 0.2);">
+            
+            <div class="admin-nav-item">
+                <a href="#" class="admin-nav-link" onclick="logout()">
+                    <i class="admin-nav-icon fas fa-sign-out-alt"></i>
+                    <span>Déconnexion</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Contenu principal Administration -->
+    <div class="admin-main-content">
+        <!-- Barre supérieure -->
+        <div class="admin-top-bar admin-animate-slide-up">
+            <div class="admin-welcome">
+                <h1 class="admin-welcome-title">Panneau d'administration</h1>
+                <p class="admin-welcome-subtitle">Gérez votre plateforme Assembl'âge</p>
+            </div>
+            <div class="admin-user-info">
+                <div class="admin-user-avatar">A</div>
+                <div>
+                    <div class="admin-badge">Administrateur</div>
+                    <div class="text-muted small">Dernière connexion: Aujourd'hui</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Tableau de bord -->
+        <div id="admin-dashboard-section" class="admin-content-section active">
+            <!-- Statistiques -->
+            <div class="admin-stats-grid admin-animate-fade-in">
+                <div class="admin-stat-card users">
+                    <div class="admin-stat-header">
+                        <h3 class="admin-stat-title">Utilisateurs totaux</h3>
+                        <div class="admin-stat-icon green">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <span class="admin-stat-number" id="total-users">0</span>
+                    <div class="admin-stat-label">Utilisateurs inscrits</div>
+                    <div class="admin-stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+15% ce mois</span>
+                    </div>
+                </div>
+                
+                <div class="admin-stat-card requests">
+                    <div class="admin-stat-header">
+                        <h3 class="admin-stat-title">Demandes d'aide</h3>
+                        <div class="admin-stat-icon turquoise">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                    </div>
+                    <span class="admin-stat-number" id="total-requests">0</span>
+                    <div class="admin-stat-label">Demandes créées</div>
+                    <div class="admin-stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+8% cette semaine</span>
+                    </div>
+                </div>
+                
+                <div class="admin-stat-card services">
+                    <div class="admin-stat-header">
+                        <h3 class="admin-stat-title">Types de services</h3>
+                        <div class="admin-stat-icon gray">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                    </div>
+                    <span class="admin-stat-number" id="total-service-types">0</span>
+                    <div class="admin-stat-label">Services configurés</div>
+                    <div class="admin-stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+2 nouveaux</span>
+                    </div>
+                </div>
+                
+                <div class="admin-stat-card messages">
+                    <div class="admin-stat-header">
+                        <h3 class="admin-stat-title">Messages</h3>
+                        <div class="admin-stat-icon warning">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+                    <span class="admin-stat-number" id="total-messages">0</span>
+                    <div class="admin-stat-label">Messages échangés</div>
+                    <div class="admin-stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+25 aujourd'hui</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="admin-content-grid">
+                <!-- Graphique d'activité -->
+                <div class="admin-panel admin-animate-slide-up">
+                    <div class="admin-panel-header">
+                        <h2 class="admin-panel-title">
+                            <i class="fas fa-chart-line"></i>
+                            Activité de la plateforme
+                        </h2>
+                        <button class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-download"></i>
+                            Exporter
+                        </button>
+                    </div>
+                    <div class="admin-panel-body">
+                        <div class="admin-chart-container">
+                            <canvas id="adminActivityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions rapides -->
+                <div class="admin-animate-slide-up">
+                    <div class="admin-panel">
+                        <div class="admin-panel-header">
+                            <h2 class="admin-panel-title">
+                                <i class="fas fa-bolt"></i>
+                                Actions rapides
+                            </h2>
+                        </div>
+                        <div class="admin-panel-body">
+                            <div class="admin-quick-actions">
+                                <a href="#" class="admin-quick-action" onclick="showAdminSection('users')">
+                                    <div class="admin-quick-action-icon">
+                                        <i class="fas fa-user-plus"></i>
+                                    </div>
+                                    <div class="admin-quick-action-title">Gérer les utilisateurs</div>
+                                    <div class="admin-quick-action-desc">Voir et modérer les comptes</div>
+                                </a>
+                                
+                                <a href="#" class="admin-quick-action" onclick="showAdminSection('service-types')">
+                                    <div class="admin-quick-action-icon">
+                                        <i class="fas fa-plus"></i>
+                                    </div>
+                                    <div class="admin-quick-action-title">Nouveau service</div>
+                                    <div class="admin-quick-action-desc">Ajouter un type de service</div>
+                                </a>
+                                
+                                <a href="#" class="admin-quick-action" onclick="showAdminSection('config')">
+                                    <div class="admin-quick-action-icon">
+                                        <i class="fas fa-cog"></i>
+                                    </div>
+                                    <div class="admin-quick-action-title">Configuration</div>
+                                    <div class="admin-quick-action-desc">Paramètres système</div>
+                                </a>
+                                
+                                <a href="#" class="admin-quick-action" onclick="showAdminSection('logs')">
+                                    <div class="admin-quick-action-icon">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <div class="admin-quick-action-title">Logs système</div>
+                                    <div class="admin-quick-action-desc">Surveiller l'activité</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Utilisateurs -->
+        <div id="admin-users-section" class="admin-content-section">
+            <div class="admin-panel">
+                <div class="admin-panel-header">
+                    <h2 class="admin-panel-title">
+                        <i class="fas fa-users"></i>
+                        Gestion des utilisateurs
+                    </h2>
+                    <div>
+                        <button class="btn btn-outline-primary btn-sm me-2">
+                            <i class="fas fa-download"></i>
+                            Exporter
+                        </button>
+                        <button class="btn btn-primary btn-sm">
+                            <i class="fas fa-user-plus"></i>
+                            Nouvel utilisateur
+                        </button>

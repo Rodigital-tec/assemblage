@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Assembl'âge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="theme_officiel_exact.css">
+    <link rel="stylesheet" href="header_exact_officiel.css">
+    <link rel="stylesheet" href="header_mobile_improved.css">
+    <link rel="stylesheet" href="icons_svg_monochrome.css">
+    <style>
+        :root {
+            --primary-green: #9ACD32;
+            --primary-turquoise: #00A0B0;
+            --light-green: #F0F8E8;
+            --light-turquoise: #E8F8F9;
+            --light-pink: #FFE8F0;
+            --light-blue: #E8F4FF;
+            --white: #ffffff;
+            --gray-50: #FAFAFA;
+            --gray-100: #F5F5F5;
+            --gray-200: #EEEEEE;
+            --gray-300: #E0E0E0;
+            --gray-600: #757575;
+            --gray-800: #424242;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 25px rgba(0,0,0,0.1);
+            --border-radius: 16px;
+            --border-radius-sm: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--gray-50);
+            min-height: 100vh;
+            color: var(--gray-800);
+            line-height: 1.6;
+            padding-top: 60px;
+        }
+
+        /* Ajustement de la taille du logo pour la page admin */
+        .logo-official, .logo-img-official {
+            height: 45px !important;
+            max-width: 200px !important;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Section d'accueil */
+        .welcome-section {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-green);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .welcome-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .admin-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-turquoise));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .welcome-text h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 0.25rem;
+        }
+
+        .welcome-text p {
+            color: var(--gray-600);
+            font-size: 1rem;
+        }
+
+        .admin-badge {
+            background: var(--primary-turquoise);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        /* Statistiques */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .stat-title {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .stat-icon.green {
+            background: var(--light-green);
+            color: var(--primary-green);
+        }
+
+        .stat-icon.turquoise {
+            background: var(--light-turquoise);
+            color: var(--primary-turquoise);
+        }
+
+        .stat-icon.pink {
+            background: var(--light-pink);
+            color: #FF6B9D;
+        }
+
+        .stat-icon.blue {
+            background: var(--light-blue);
+            color: #4A90E2;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-trend {
+            font-size: 0.875rem;
+            color: var(--primary-green);
+            font-weight: 500;
+        }
+
+        /* Section avec titre */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--primary-green);
+            border-radius: 2px;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        /* Actions rapides */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .action-card.green {
+            background: var(--light-green);
+            border-color: var(--primary-green);
+        }
+
+        .action-card.turquoise {
+            background: var(--light-turquoise);
+            border-color: var(--primary-turquoise);
+        }
+
+        .action-card.pink {
+            background: var(--light-pink);
+            border-color: #FF6B9D;
+        }
+
+        .action-card.purple {
+            background: #F3E8FF;
+            border-color: #9333EA;
+        }
+
+        .action-card.blue {
+            background: var(--light-blue);
+            border-color: #4A90E2;
+        }
+
+        .action-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .action-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+        }
+
+        .action-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
+        }
+
+        .action-description {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        /* Tableaux */
+        .table-container {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .table-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #8BC02D;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--primary-turquoise);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: #009099;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 1rem;
+            background: var(--gray-100);
+            color: var(--gray-800);
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-bottom: 2px solid var(--gray-300);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        tr:hover {
+            background: var(--gray-50);
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: var(--light-green);
+            color: var(--primary-green);
+        }
+
+        .badge-primary {
+            background: var(--light-turquoise);
+            color: var(--primary-turquoise);
+        }
+
+        .badge-secondary {
+            background: var(--gray-200);
+            color: var(--gray-600);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+
+        .action-btn.view {
+            background: var(--light-blue);
+            color: #4A90E2;
+        }
+
+        .action-btn.edit {
+            background: var(--light-turquoise);
+            color: var(--primary-turquoise);
+        }
+
+        .action-btn.delete {
+            background: var(--light-pink);
+            color: #FF6B9D;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Formulaire */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            font-size: 0.875rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-300);
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.875rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        /* États de chargement */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--gray-200);
+            border-top-color: var(--primary-green);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 1rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 10000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .toast.error {
+            border-left: 4px solid #FF6B9D;
+        }
+
+        .toast.warning {
+            border-left: 4px solid #ff9800;
+        }
+
+        .toast-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .toast.success .toast-icon {
+            background: var(--light-green);
+            color: var(--primary-green);
+        }
+
+        .toast.error .toast-icon {
+            background: var(--light-pink);
+            color: #FF6B9D;
+        }
+
+        .toast.warning .toast-icon {
+            background: #fff3e0;
+            color: #ff9800;
+        }
+
+        /* Animations pour les modals */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-overlay {
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            animation: slideUp 0.3s ease;
+        }
+
+        /* Amélioration des badges */
+        .badge-danger {
+            background: var(--light-pink);
+            color: #FF6B9D;
+        }
+
+        .badge-warning {
+            background: #fff3e0;
+            color: #ff9800;
+        }
+
+        /* Boutons avec état de chargement */
+        .btn.loading {
+            position: relative;
+            color: transparent;
+            pointer-events: none;
+        }
+
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin-left: -8px;
+            margin-top: -8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        /* Amélioration du hover sur les lignes de tableau */
+        tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: var(--gray-50);
+            transform: translateX(2px);
+        }
+
+        /* Filtres et sélecteurs améliorés */
+        select.form-control {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23757575' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+            appearance: none;
+        }
+
+        select.form-control:hover {
+            border-color: var(--primary-green);
+        }
+
+        /* Amélioration des boutons d'export */
+        .btn-export {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-export svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-container {
+                padding: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .admin-badge {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+
+            /* Amélioration des tableaux sur mobile */
+            .table-container {
+                padding: 1rem;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table {
+                font-size: 0.75rem;
+                min-width: 800px;
+            }
+
+            th, td {
+                padding: 0.75rem 0.5rem;
+            }
+
+            /* Amélioration du modal sur mobile */
+            .modal-content {
+                width: 95% !important;
+                max-width: 95% !important;
+                padding: 1.5rem !important;
+                max-height: 90vh !important;
+            }
+
+            /* Amélioration des boutons sur mobile */
+            .btn {
+                padding: 0.875rem 1.25rem;
+                font-size: 0.875rem;
+            }
+
+            .action-btn {
+                width: 36px;
+                height: 36px;
+            }
+
+            /* Toast sur mobile */
+            .toast {
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+                max-width: calc(100% - 2rem);
+            }
+
+            /* Stats cards plus compactes sur mobile */
+            .stat-card {
+                padding: 1.25rem;
+            }
+
+            .stat-number {
+                font-size: 1.75rem;
+            }
+
+            /* Actions cards plus compactes */
+            .action-card {
+                padding: 1.5rem;
+            }
+
+            .action-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .action-title {
+                font-size: 1.125rem;
+            }
+
+            /* Formulaires sur mobile */
+            .form-control {
+                font-size: 16px; /* Évite le zoom automatique sur iOS */
+            }
+
+            /* Section headers sur mobile */
+            .section-header h2 {
+                font-size: 1.25rem;
+            }
+
+            .welcome-text h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Très petits écrans */
+        @media (max-width: 480px) {
+            body {
+                padding-top: 50px;
+            }
+
+            .admin-container {
+                padding: 0.75rem;
+            }
+
+            .welcome-section {
+                padding: 1.5rem;
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+
+            .action-card {
+                padding: 1.25rem;
+            }
+
+            .table-container {
+                padding: 0.75rem;
+            }
+
+            .modal-content {
+                padding: 1rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-official">
+        <div class="nav-container-official">
+            <a href="/" class="logo-link">
+                <img src="/static/logo.png" alt="Assembl'âge Employeur-Employés" class="logo-official">
+            </a>
+            
+            <nav class="nav-menu-official">
+                <a href="/dashboard.html" class="nav-link-official">Tableau de bord</a>
+                <a href="/admin.html" class="nav-link-official active">Administration</a>
+            </nav>
+            
+            <div class="nav-actions-official">
+                <span class="user-name-official">Administrateur</span>
+                <span class="admin-badge">Admin</span>
+                <button class="btn-deconnexion-official" onclick="logout()">Déconnexion</button>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <div class="admin-container">
+        <!-- Section d'accueil -->
+        <div class="welcome-section">
+            <div class="welcome-header">
+                <div class="admin-avatar">A</div>
+                <div class="welcome-text">
+                    <h1>Panneau d'administration</h1>
+                    <p>Gérez votre plateforme Assembl'âge</p>
+                </div>
+                <span class="admin-badge">Administrateur</span>
+            </div>
+        </div>
+
+        <!-- Statistiques -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-title">Utilisateurs inscrits</span>
+                    <div class="stat-icon green">
+                        <svg class="icon-svg" viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="stat-number" id="total-users">8</div>
+                <div class="stat-trend">+15% ce mois</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-title">Demandes créées</span>
+                    <div class="stat-icon turquoise">
+                        <svg class="icon-svg" viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor" d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="stat-number" id="total-requests">15</div>
+                <div class="stat-trend">+8% cette semaine</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-title">Offres de services</span>
+                    <div class="stat-icon pink">
+                        <svg class="icon-svg" viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="stat-number" id="total-offers">12</div>
+                <div class="stat-trend">+3 nouvelles</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-title">Messages échangés</span>
+                    <div class="stat-icon blue">
+                        <svg class="icon-svg" viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor" d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="stat-number" id="total-messages">42</div>
+                <div class="stat-trend">+25 aujourd'hui</div>
+            </div>
+        </div>
+
+        <!-- Actions rapides -->
+        <div class="section-header">
+            <h2>Actions rapides</h2>
+        </div>
+
+        <div class="actions-grid">
+            <a href="#users" class="action-card green" onclick="showSection('users'); return false;">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <h3 class="action-title">Gérer les utilisateurs</h3>
+                <p class="action-description">Voir et modérer les comptes utilisateurs</p>
+            </a>
+
+            <a href="#requests" class="action-card turquoise" onclick="showSection('requests'); return false;">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <h3 class="action-title">Demandes d'aide</h3>
+                <p class="action-description">Modérer les demandes publiées</p>
+            </a>
+
+            <a href="#offers" class="action-card pink" onclick="showSection('offers'); return false;">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                <h3 class="action-title">Offres de services</h3>
+                <p class="action-description">Gérer les offres des aidants</p>
+            </a>
+
+            <a href="#messages" class="action-card purple" onclick="showSection('messages'); return false;">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <h3 class="action-title">Modération Messages</h3>
+                <p class="action-description">Lire et modérer les messages</p>
+            </a>
+
+            <a href="#config" class="action-card blue" onclick="showSection('config'); return false;">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M12 1v6m0 6v6m5.196-15.196l-4.242 4.242m-5.908 5.908l-4.242 4.242m15.196 0l-4.242-4.242m-5.908-5.908l-4.242-4.242"></path>
+                </svg>
+                <h3 class="action-title">Configuration</h3>
+                <p class="action-description">Paramètres SMTP et système</p>
+            </a>
+        </div>
+
+        <!-- Section Utilisateurs -->
+        <div id="users-section" class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Gestion des utilisateurs</h3>
+                <button class="btn btn-primary" onclick="exportUsers()">Exporter</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Type</th>
+                        <th>Statut</th>
+                        <th>Inscription</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="users-table-body">
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 2rem;">Chargement des données...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section Demandes d'aide -->
+        <div id="requests-section" class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Demandes d'aide</h3>
+                <button class="btn btn-primary" onclick="exportRequests()">Exporter</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Demandeur</th>
+                        <th>Type</th>
+                        <th>Statut</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="requests-table-body">
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 2rem;">Chargement des données...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section Offres de services -->
+        <div id="offers-section" class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Offres de services</h3>
+                <button class="btn btn-primary" onclick="exportOffers()">Exporter</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Aidant</th>
+                        <th>Type</th>
+                        <th>Tarif</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="offers-table-body">
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 2rem;">Chargement des données...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section Modération des Messages -->
+        <div id="section-messages" class="admin-section">
+            <div class="section-header">
+                <h3 class="table-title">Modération des Messages</h3>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <select id="message-filter" class="form-control" style="width: 200px;" onchange="filterMessages()">
+                        <option value="all">Tous les messages</option>
+                        <option value="flagged">Messages signalés</option>
+                        <option value="moderated">Messages modérés</option>
+                    </select>
+                    <button class="btn btn-secondary" onclick="exportMessages()">Exporter</button>
+                </div>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Expéditeur</th>
+                            <th>Destinataire</th>
+                            <th>Aperçu</th>
+                            <th>Date</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="messages-table-body">
+                        <!-- Les messages seront chargés ici par JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section Configuration SMTP -->
+        <div id="section-config" class="admin-section">
+            <div class="section-header">
+                <h3 class="table-title">Configuration SMTP</h3>
+            </div>
+            <form id="smtp-form">
+                <div class="form-group">
+                    <label class="form-label">Serveur SMTP</label>
+                    <input type="text" class="form-control" id="smtp-server" placeholder="smtp.example.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Port</label>
+                    <input type="number" class="form-control" id="smtp-port" placeholder="587">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Nom d'utilisateur</label>
+                    <input type="text" class="form-control" id="smtp-username" placeholder="user@example.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Mot de passe</label>
+                    <input type="password" class="form-control" id="smtp-password" placeholder="••••••••">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email d'envoi</label>
+                    <input type="email" class="form-control" id="smtp-from-email" placeholder="noreply@assembl-age.ch">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Nom d'envoi</label>
+                    <input type="text" class="form-control" id="smtp-from-name" placeholder="Assembl'âge">
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                    <button type="button" class="btn btn-secondary" onclick="testSmtp()">Tester</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Chargement des données au démarrage
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUsers();
+            loadRequests();
+            loadOffers();
+            loadMessages();
+            loadSmtpConfig();
+        });
+
+        // Chargement des utilisateurs
+        async function loadUsers() {
+            const tableBody = document.getElementById('users-table-body');
+            
+            // Données de test
+            const users = [
+                { id: 1, first_name: 'Admin', last_name: 'System', email: 'admin@assemblage.ch', user_type: 'admin', status: 'Actif', created_at: '2024-01-01' },
+                { id: 2, first_name: 'Marie', last_name: 'Dupont', email: 'marie.dupont@email.com', user_type: 'senior', status: 'Actif', created_at: '2024-01-15' },
+                { id: 3, first_name: 'Jean', last_name: 'Martin', email: 'jean.martin@email.com', user_type: 'senior', status: 'Actif', created_at: '2024-01-16' },
+                { id: 4, first_name: 'Sophie', last_name: 'Leroy', email: 'sophie.leroy@email.com', user_type: 'aidant', status: 'Actif', created_at: '2024-01-17' },
+                { id: 5, first_name: 'Thomas', last_name: 'Petit', email: 'thomas.petit@email.com', user_type: 'aidant', status: 'Actif', created_at: '2024-01-18' }
+            ];
+            
+            tableBody.innerHTML = users.map(user => `
+                <tr>
+                    <td>${user.id}</td>
+                    <td>${user.first_name} ${user.last_name}</td>
+                    <td>${user.email}</td>
+                    <td>
+                        <span class="badge badge-${user.user_type === 'admin' ? 'secondary' : user.user_type === 'senior' ? 'primary' : 'success'}">
+                            ${user.user_type === 'admin' ? 'Admin' : user.user_type === 'senior' ? 'Senior' : 'Aidant'}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge badge-success">${user.status}</span>
+                    </td>
+                    <td>${new Date(user.created_at).toLocaleDateString('fr-FR')}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn view" onclick="viewUser(${user.id})" title="Voir">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                </svg>
+                            </button>
+                            <button class="action-btn edit" onclick="editUser(${user.id})" title="Éditer">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                </svg>
+                            </button>
+                            ${user.user_type !== 'admin' ? `
+                            <button class="action-btn delete" onclick="deleteUser(${user.id})" title="Supprimer">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                </svg>
+                            </button>
+                            ` : ''}
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Chargement des demandes
+        async function loadRequests() {
+            const tableBody = document.getElementById('requests-table-body');
+            
+            // Données de test
+            const requests = [
+                { id: 1, title: 'Aide pour les courses', requester_name: 'Marie Dupont', service_type: 'Aide à domicile', status: 'open', created_at: '2024-01-20' },
+                { id: 2, title: 'Compagnie pour sortie', requester_name: 'Jean Martin', service_type: 'Compagnie', status: 'in_progress', created_at: '2024-01-21' },
+                { id: 3, title: 'Jardinage', requester_name: 'Marie Dupont', service_type: 'Jardinage', status: 'completed', created_at: '2024-01-19' }
+            ];
+            
+            const statusLabels = {
+                'open': 'Ouverte',
+                'in_progress': 'En cours',
+                'completed': 'Terminée',
+                'cancelled': 'Annulée'
+            };
+            
+            const statusColors = {
+                'open': 'primary',
+                'in_progress': 'secondary',
+                'completed': 'success',
+                'cancelled': 'secondary'
+            };
+            
+            tableBody.innerHTML = requests.map(req => `
+                <tr>
+                    <td>${req.id}</td>
+                    <td>${req.title}</td>
+                    <td>${req.requester_name}</td>
+                    <td>${req.service_type}</td>
+                    <td><span class="badge badge-${statusColors[req.status]}">${statusLabels[req.status]}</span></td>
+                    <td>${new Date(req.created_at).toLocaleDateString('fr-FR')}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn view" onclick="viewRequest(${req.id})" title="Voir">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                </svg>
+                            </button>
+                            <button class="action-btn delete" onclick="deleteRequest(${req.id})" title="Supprimer">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Chargement des offres
+        async function loadOffers() {
+            const tableBody = document.getElementById('offers-table-body');
+            
+            // Données de test
+            const offers = [
+                { id: 1, title: 'Aide aux courses', helper_name: 'Sophie Leroy', service_type: 'Aide à domicile', hourly_rate: 25, is_active: true },
+                { id: 2, title: 'Compagnie et sorties', helper_name: 'Thomas Petit', service_type: 'Compagnie', hourly_rate: 20, is_active: true },
+                { id: 3, title: 'Entretien jardin', helper_name: 'Sophie Leroy', service_type: 'Jardinage', hourly_rate: 30, is_active: false }
+            ];
+            
+            tableBody.innerHTML = offers.map(offer => `
+                <tr>
+                    <td>${offer.id}</td>
+                    <td>${offer.title}</td>
+                    <td>${offer.helper_name}</td>
+                    <td>${offer.service_type}</td>
+                    <td>${offer.hourly_rate} CHF/h</td>
+                    <td><span class="badge badge-${offer.is_active ? 'success' : 'secondary'}">${offer.is_active ? 'Active' : 'Inactive'}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn view" onclick="viewOffer(${offer.id})" title="Voir">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                </svg>
+                            </button>
+                            <button class="action-btn delete" onclick="deleteOffer(${offer.id})" title="Supprimer">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Charger la configuration SMTP
+        async function loadSmtpConfig() {
+            // À implémenter avec l'API
+        }
+
+        // Gestion des sections
+        function showSection(sectionName) {
+            const sections = {
+                'users': 'users-section',
+                'requests': 'requests-section',
+                'offers': 'offers-section',
+                'config': 'config-section'
+            };
+            
+            // Scroll vers la section
+            const sectionId = sections[sectionName];
+            if (sectionId) {
+                document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Fonctions d'action
+        function viewUser(id) {
+            alert(`Voir l'utilisateur ${id} - À implémenter`);
+        }
+
+        function editUser(id) {
+            alert(`Éditer l'utilisateur ${id} - À implémenter`);
+        }
+
+        function deleteUser(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
+                alert(`Supprimer l'utilisateur ${id} - À implémenter`);
+            }
+        }
+
+        function viewRequest(id) {
+            alert(`Voir la demande ${id} - À implémenter`);
+        }
+
+        function deleteRequest(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette demande ?')) {
+                alert(`Supprimer la demande ${id} - À implémenter`);
+            }
+        }
+
+        function viewOffer(id) {
+            alert(`Voir l'offre ${id} - À implémenter`);
+        }
+
+        function deleteOffer(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette offre ?')) {
+                alert(`Supprimer l'offre ${id} - À implémenter`);
+            }
+        }
+
+        function exportUsers() {
+            alert('Export des utilisateurs - À implémenter');
+        }
+
+        function exportRequests() {
+            alert('Export des demandes - À implémenter');
+        }
+
+        function exportOffers() {
+            alert('Export des offres - À implémenter');
+        }
+
+        function testSmtp() {
+            alert('Test de la configuration SMTP - À implémenter');
+        }
+
+        // Gestion du formulaire SMTP
+        document.getElementById('smtp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Sauvegarde de la configuration SMTP - À implémenter');
+        });
+
+        // Déconnexion
+        function logout() {
+            localStorage.clear();
+            sessionStorage.clear();
+            
+            fetch('/api/auth/logout', {
+                method: 'POST',
+                credentials: 'include'
+            }).finally(() => {
+                window.location.href = '/login.html';
+            });
+        }
+
+        // Menu mobile
+        // Chargement des messages
+        let allMessages = [];
+        async function loadMessages() {
+            const tableBody = document.getElementById('messages-table-body');
+            
+            // Données de test - Conversations réalistes
+            allMessages = [
+                { id: 1, sender_name: 'Marie Dupont', receiver_name: 'Sophie Leroy', content: 'Bonjour Sophie, je suis intéressée par votre offre d\'aide aux courses. Seriez-vous disponible mardi prochain ?', created_at: '2024-01-22 10:30', status: 'normal', conversation_id: 1 },
+                { id: 2, sender_name: 'Sophie Leroy', receiver_name: 'Marie Dupont', content: 'Bonjour Marie, oui bien sûr ! Mardi me convient parfaitement. À quelle heure préférez-vous ?', created_at: '2024-01-22 11:15', status: 'normal', conversation_id: 1 },
+                { id: 3, sender_name: 'Jean Martin', receiver_name: 'Thomas Petit', content: 'Bonjour, j\'aurais besoin d\'aide pour mon jardin ce week-end. Êtes-vous disponible ?', created_at: '2024-01-23 09:00', status: 'normal', conversation_id: 2 },
+                { id: 4, sender_name: 'Thomas Petit', receiver_name: 'Jean Martin', content: 'Ce message contient du contenu inapproprié qui devrait être modéré.', created_at: '2024-01-23 09:45', status: 'flagged', conversation_id: 2 },
+                { id: 5, sender_name: 'Marie Dupont', receiver_name: 'Sophie Leroy', content: 'Vers 14h ce serait parfait. Merci beaucoup !', created_at: '2024-01-22 11:30', status: 'normal', conversation_id: 1 },
+                { id: 6, sender_name: 'Sophie Leroy', receiver_name: 'Marie Dupont', content: 'Parfait, je serai là à 14h. À mardi !', created_at: '2024-01-22 12:00', status: 'normal', conversation_id: 1 },
+                { id: 7, sender_name: 'Jean Martin', receiver_name: 'Thomas Petit', content: 'D\'accord, merci de me confirmer votre disponibilité.', created_at: '2024-01-23 10:00', status: 'normal', conversation_id: 2 },
+                { id: 8, sender_name: 'Marie Dupont', receiver_name: 'Jean Martin', content: 'Bonjour Jean, comment s\'est passée votre sortie hier ?', created_at: '2024-01-24 16:00', status: 'normal', conversation_id: 3 },
+                { id: 9, sender_name: 'Admin System', receiver_name: 'Thomas Petit', content: 'Votre message a été modéré pour non-respect des conditions d\'utilisation.', created_at: '2024-01-23 10:30', status: 'moderated', conversation_id: 2 }
+            ];
+            
+            renderMessages();
+        }
+
+        function renderMessages() {
+            const tableBody = document.getElementById('messages-table-body');
+            const filter = document.getElementById('message-filter').value;
+            
+            let filteredMessages = allMessages;
+            if (filter === 'flagged') {
+                filteredMessages = allMessages.filter(m => m.status === 'flagged');
+            } else if (filter === 'moderated') {
+                filteredMessages = allMessages.filter(m => m.status === 'moderated');
+            }
+            
+            tableBody.innerHTML = filteredMessages.map(msg => `
+                <tr>
+                    <td>${msg.id}</td>
+                    <td>${msg.sender_name}</td>
+                    <td>${msg.receiver_name}</td>
+                    <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        ${msg.content.substring(0, 50)}${msg.content.length > 50 ? '...' : ''}
+                    </td>
+                    <td>${new Date(msg.created_at).toLocaleString('fr-FR')}</td>
+                    <td>
+                        <span class="badge badge-${msg.status === 'flagged' ? 'danger' : msg.status === 'moderated' ? 'warning' : 'success'}">
+                            ${msg.status === 'flagged' ? 'Signalé' : msg.status === 'moderated' ? 'Modéré' : 'Normal'}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn view" onclick="viewMessage(${msg.id})" title="Voir">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                </svg>
+                            </button>
+                            ${msg.status !== 'moderated' ? `
+                            <button class="action-btn delete" onclick="moderateMessage(${msg.id}, 'delete')" title="Supprimer">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                                </svg>
+                            </button>
+                            ` : ''}
+                            ${msg.status === 'flagged' ? `
+                            <button class="action-btn edit" onclick="moderateMessage(${msg.id}, 'approve')" title="Approuver">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                                </svg>
+                            </button>
+                            ` : ''}
+                            ${msg.status === 'normal' ? `
+                            <button class="action-btn" style="color: #ff9800;" onclick="moderateMessage(${msg.id}, 'flag')" title="Signaler">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                    <path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/>
+                                </svg>
+                            </button>
+                            ` : ''}
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function filterMessages() {
+            renderMessages();
+        }
+
+        function viewMessage(messageId) {
+            const message = allMessages.find(m => m.id === messageId);
+            if (!message) return;
+            
+            // Créer une modal pour afficher le message complet
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white;
+                border-radius: 16px;
+                padding: 2rem;
+                max-width: 600px;
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            `;
+            
+            modalContent.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h3 style="margin: 0; color: #333;">Détails du message</h3>
+                    <button onclick="this.closest('[style*=\\'position: fixed\\']').remove()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #666;">&times;</button>
+                </div>
+                <div style="background: #f5f5f5; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                    <p style="margin: 0.5rem 0;"><strong>ID:</strong> ${message.id}</p>
+                    <p style="margin: 0.5rem 0;"><strong>Expéditeur:</strong> ${message.sender_name}</p>
+                    <p style="margin: 0.5rem 0;"><strong>Destinataire:</strong> ${message.receiver_name}</p>
+                    <p style="margin: 0.5rem 0;"><strong>Date:</strong> ${new Date(message.created_at).toLocaleString('fr-FR')}</p>
+                    <p style="margin: 0.5rem 0;"><strong>Statut:</strong> 
+                        <span class="badge badge-${message.status === 'flagged' ? 'danger' : message.status === 'moderated' ? 'warning' : 'success'}">
+                            ${message.status === 'flagged' ? 'Signalé' : message.status === 'moderated' ? 'Modéré' : 'Normal'}
+                        </span>
+                    </p>
+                </div>
+                <div style="background: white; border: 1px solid #e0e0e0; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <h4 style="margin-top: 0; color: #666;">Contenu du message:</h4>
+                    <p style="line-height: 1.6; color: #333;">${message.content}</p>
+                </div>
+                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                    ${message.status !== 'moderated' ? `
+                    <button onclick="moderateMessage(${message.id}, 'delete'); this.closest('[style*=\\'position: fixed\\']').remove();" class="btn btn-danger">Supprimer</button>
+                    ` : ''}
+                    ${message.status === 'flagged' ? `
+                    <button onclick="moderateMessage(${message.id}, 'approve'); this.closest('[style*=\\'position: fixed\\']').remove();" class="btn btn-primary">Approuver</button>
+                    ` : ''}
+                    ${message.status === 'normal' ? `
+                    <button onclick="moderateMessage(${message.id}, 'flag'); this.closest('[style*=\\'position: fixed\\']').remove();" class="btn btn-secondary">Signaler</button>
+                    ` : ''}
+                    <button onclick="this.closest('[style*=\\'position: fixed\\']').remove()" class="btn btn-secondary">Fermer</button>
+                </div>
+            `;
+            
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+        }
+
+        function moderateMessage(messageId, action) {
+            const message = allMessages.find(m => m.id === messageId);
+            if (!message) return;
+            
+            let confirmMessage = '';
+            if (action === 'delete') {
+                confirmMessage = 'Êtes-vous sûr de vouloir supprimer ce message ?';
+            } else if (action === 'approve') {
+                confirmMessage = 'Approuver ce message et le marquer comme normal ?';
+            } else if (action === 'flag') {
+                confirmMessage = 'Signaler ce message pour modération ?';
+            }
+            
+            if (!confirm(confirmMessage)) return;
+            
+            // Afficher le loading
+            showLoading();
+            
+            // Simulation de l'appel API avec délai
+            setTimeout(() => {
+                if (action === 'delete') {
+                    message.status = 'moderated';
+                    message.content = '[Message supprimé par la modération]';
+                    showToast('Message supprimé avec succès', 'success');
+                } else if (action === 'approve') {
+                    message.status = 'normal';
+                    showToast('Message approuvé avec succès', 'success');
+                } else if (action === 'flag') {
+                    message.status = 'flagged';
+                    showToast('Message signalé avec succès', 'warning');
+                }
+                
+                renderMessages();
+                hideLoading();
+            }, 800);
+        }
+
+        // Fonction pour afficher le loading
+        function showLoading() {
+            let overlay = document.querySelector('.loading-overlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.className = 'loading-overlay';
+                overlay.innerHTML = `
+                    <div style="text-align: center;">
+                        <div class="spinner"></div>
+                        <div class="loading-text">Traitement en cours...</div>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+            }
+            setTimeout(() => overlay.classList.add('active'), 10);
+        }
+
+        // Fonction pour masquer le loading
+        function hideLoading() {
+            const overlay = document.querySelector('.loading-overlay');
+            if (overlay) {
+                overlay.classList.remove('active');
+            }
+        }
+
+        // Fonction pour afficher les toasts
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : '⚠';
+            
+            toast.innerHTML = `
+                <div class="toast-icon">${icon}</div>
+                <div>${message}</div>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 10);
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function exportMessages() {
+            showLoading();
+            
+            setTimeout(() => {
+                const filter = document.getElementById('message-filter').value;
+                let filteredMessages = allMessages;
+                
+                if (filter === 'flagged') {
+                    filteredMessages = allMessages.filter(m => m.status === 'flagged');
+                } else if (filter === 'moderated') {
+                    filteredMessages = allMessages.filter(m => m.status === 'moderated');
+                }
+                
+                // Créer un CSV
+                let csv = 'ID,Expéditeur,Destinataire,Contenu,Date,Statut\n';
+                filteredMessages.forEach(msg => {
+                    csv += `${msg.id},"${msg.sender_name}","${msg.receiver_name}","${msg.content.replace(/"/g, '""')}","${msg.created_at}","${msg.status}"\n`;
+                });
+                
+                // Télécharger le fichier
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `messages_${filter}_${new Date().toISOString().split('T')[0]}.csv`;
+                link.click();
+                
+                hideLoading();
+                showToast(`${filteredMessages.length} message(s) exporté(s) avec succès`, 'success');
+            }, 500);
+        }
+
+        function toggleMobileMenu() {
+            let mobileMenu = document.querySelector('.mobile-menu');
+            
+            if (!mobileMenu) {
+                mobileMenu = document.createElement('div');
+                mobileMenu.className = 'mobile-menu';
+                mobileMenu.innerHTML = `
+                    <a href="/dashboard.html" class="mobile-menu-link">Tableau de bord</a>
+                    <a href="/admin.html" class="mobile-menu-link active">Administration</a>
+                    <div class="mobile-menu-divider"></div>
+                    <a href="/profile.html" class="mobile-menu-link">Mon profil</a>
+                    <button class="mobile-menu-link" onclick="logout()">Déconnexion</button>
+                `;
+                document.body.appendChild(mobileMenu);
+            }
+            
+            mobileMenu.classList.toggle('active');
+            document.querySelector('.mobile-menu-toggle').classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                    ❌ ERREUR GITHUB ❌                                    ║
+║                                                                            ║
+║                    "failed to push some refs"                             ║
+║                                                                            ║
+║                    SOLUTION SIMPLE !                                      ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+CAUSE DU PROBLEME
+════════════════════════════════════════════════════════════════════════════
+
+GitHub a rejeté votre envoi parce que le dépôt contient des fichiers que
+vous n'avez pas localement.
+
+C'est normal ! C'est facile à résoudre.
+
+
+SOLUTION AUTOMATIQUE (RECOMMANDEE)
+════════════════════════════════════════════════════════════════════════════
+
+Windows:
+────────
+Double-cliquez sur: corriger.bat
+
+OU ouvrez le terminal et tapez:
+corriger.bat
+
+
+Mac/Linux:
+──────────
+Ouvrez le terminal et tapez:
+bash corriger.sh
+
+
+Le script va:
+✅ Télécharger les fichiers du dépôt GitHub
+✅ Envoyer votre code vers GitHub
+✅ Résoudre l'erreur automatiquement
+
+
+SOLUTION MANUELLE (Si le script ne fonctionne pas)
+════════════════════════════════════════════════════════════════════════════
+
+Ouvrez le terminal et tapez ces commandes une par une:
+
+1. git pull origin main --allow-unrelated-histories
+
+2. git push -u origin main
+
+
+VERIFIER QUE L'ERREUR EST CORRIGEE
+════════════════════════════════════════════════════════════════════════════
+
+1. Allez sur: https://github.com/Rodigital-tec/assemblage
+2. Vous devriez voir tous vos fichiers
+3. Si oui, c'est bon ! ✅
+
+
+APRES AVOIR CORRIGE L'ERREUR
+════════════════════════════════════════════════════════════════════════════
+
+1. Allez sur: https://render.com
+2. Connectez-vous avec GitHub
+3. Cliquez sur "New +" puis "Web Service"
+4. Sélectionnez votre dépôt "assemblage"
+5. Configurez et déployez
+
+
+NOTES IMPORTANTES
+════════════════════════════════════════════════════════════════════════════
+
+⚠️  Assurez-vous d'être dans le bon dossier
+
+⚠️  Vérifiez que votre dépôt GitHub est PUBLIC
+
+⚠️  Vérifiez que vous avez accès à Internet
+
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                  ✅ LANCEZ LE SCRIPT ! ✅                                ║
+║                                                                            ║
+║              corriger.bat (Windows) ou corriger.sh (Mac/Linux)            ║
+║                                                                            ║
+║                    Bonne chance ! 🚀                                      ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+

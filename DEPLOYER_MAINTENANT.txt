@@ -1,0 +1,102 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                    🚀 DEPLOYER MAINTENANT 🚀                              ║
+║                                                                            ║
+║                    Déploiement de Assembl'âge sur Render                  ║
+║                                                                            ║
+║                    Solution SIMPLE et AUTOMATISEE !                       ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+SOLUTION SIMPLE
+════════════════════════════════════════════════════════════════════════════
+
+Vous avez maintenant un script de déploiement automatisé !
+
+Il fera TOUT pour vous en une seule commande ! 🎯
+
+
+COMMENT UTILISER
+════════════════════════════════════════════════════════════════════════════
+
+OPTION 1: Sur Windows
+─────────────────────
+
+1. Double-cliquez sur: deploy.bat
+
+OU
+
+2. Ouvrez le terminal et tapez:
+   deploy.bat
+
+OPTION 2: Sur Mac/Linux
+──────────────────────
+
+1. Ouvrez le terminal
+2. Tapez:
+   bash deploy.sh
+
+OU
+
+3. Rendez le script exécutable:
+   chmod +x deploy.sh
+   ./deploy.sh
+
+
+CE QUE LE SCRIPT FAIT
+════════════════════════════════════════════════════════════════════════════
+
+✅ Vérifie que Git est installé
+✅ Initialise Git
+✅ Ajoute tous les fichiers
+✅ Crée un commit
+✅ Vous demande votre nom d'utilisateur GitHub
+✅ Crée le dépôt GitHub automatiquement
+✅ Envoie votre code vers GitHub
+✅ Affiche les instructions pour Render
+
+
+APRES LE SCRIPT
+════════════════════════════════════════════════════════════════════════════
+
+Le script vous affichera les instructions pour:
+
+1. Aller sur https://render.com
+2. Connecter votre compte GitHub
+3. Créer un "Web Service"
+4. Sélectionner votre dépôt
+5. Configurer et déployer
+
+C'est tout ! 🎉
+
+
+TEMPS TOTAL
+════════════════════════════════════════════════════════════════════════════
+
+Script:        5 minutes
+Render:        5 minutes
+Déploiement:   2-3 minutes
+─────────────────────────
+TOTAL:         12-13 minutes
+
+
+RESULTAT FINAL
+════════════════════════════════════════════════════════════════════════════
+
+Votre application sera accessible à :
+
+    https://assemblage-app.onrender.com
+
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                  ✅ C'EST TOUT ! C'EST SIMPLE ! ✅                        ║
+║                                                                            ║
+║              Lancez deploy.bat (Windows) ou deploy.sh (Mac/Linux)         ║
+║                                                                            ║
+║                    Bonne chance ! 🚀                                      ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+

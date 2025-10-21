@@ -1,0 +1,94 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                    ✅ PROBLEME RESOLU ✅                                  ║
+║                                                                            ║
+║                    Vous ne voyez pas votre dépôt dans Render              ║
+║                                                                            ║
+║                    Voici la solution !                                    ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+POURQUOI ?
+════════════════════════════════════════════════════════════════════════════
+
+Le dépôt "assemblage" n'existe pas encore sur GitHub !
+
+Le script vous demande votre nom d'utilisateur, mais il ne crée pas le dépôt.
+Vous devez le créer manuellement d'abord.
+
+
+SOLUTION
+════════════════════════════════════════════════════════════════════════════
+
+Suivez ces 3 étapes simples:
+
+1️⃣  CREER LE DEPOT GITHUB
+    └─ Allez sur: https://github.com/new
+    └─ Créez un dépôt nommé "assemblage"
+    └─ Cochez "Public"
+    └─ Ne cochez PAS "Initialize repository"
+    └─ Cliquez sur "Create repository"
+
+2️⃣  LANCER LE SCRIPT
+    └─ Windows: Double-cliquez sur deploy.bat
+    └─ Mac/Linux: bash deploy.sh
+    └─ Entrez votre nom d'utilisateur GitHub
+    └─ Attendez que le script termine
+
+3️⃣  DEPLOYER SUR RENDER
+    └─ Allez sur: https://render.com
+    └─ Connectez-vous avec GitHub
+    └─ Cliquez sur "New +" puis "Web Service"
+    └─ Vous verrez maintenant votre dépôt "assemblage"
+    └─ Sélectionnez-le et configurez
+
+
+FICHIERS UTILES
+════════════════════════════════════════════════════════════════════════════
+
+1. CREER_DEPOT_GITHUB.txt
+   └─ Guide détaillé pour créer le dépôt GitHub
+
+2. GUIDE_COMPLET_DEPLOIEMENT.txt
+   └─ Guide complet avec toutes les étapes
+
+3. deploy.bat (Windows)
+   └─ Script de déploiement automatisé
+
+4. deploy.sh (Mac/Linux)
+   └─ Script de déploiement automatisé
+
+
+RESUME
+════════════════════════════════════════════════════════════════════════════
+
+1. Créer le dépôt GitHub "assemblage"
+2. Lancer le script deploy.bat ou deploy.sh
+3. Aller sur Render et déployer
+
+C'est tout ! 🎉
+
+
+TEMPS TOTAL
+════════════════════════════════════════════════════════════════════════════
+
+Créer le dépôt:  2 minutes
+Lancer le script: 5 minutes
+Render:          5 minutes
+Déploiement:     2-3 minutes
+─────────────────────────────
+TOTAL:           14-15 minutes
+
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                  ✅ C'EST TOUT ! C'EST SIMPLE ! ✅                        ║
+║                                                                            ║
+║              Créez le dépôt, lancez le script, puis Render !              ║
+║                                                                            ║
+║                    Bonne chance ! 🚀                                      ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+

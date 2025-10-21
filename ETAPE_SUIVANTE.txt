@@ -1,0 +1,103 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                    ✅ ETAPE SUIVANTE ✅                                   ║
+║                                                                            ║
+║                    Vous avez créé le dépôt GitHub !                       ║
+║                                                                            ║
+║                    Maintenant, importez vos fichiers !                    ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+SITUATION ACTUELLE
+════════════════════════════════════════════════════════════════════════════
+
+✅ Vous avez créé le dépôt GitHub "assemblage"
+❌ Vos fichiers ne sont pas encore dedans
+
+
+PROCHAINE ETAPE
+════════════════════════════════════════════════════════════════════════════
+
+Vous devez importer vos fichiers dans le dépôt GitHub.
+
+Il y a 2 façons de le faire:
+
+
+OPTION 1: UTILISER LE SCRIPT AUTOMATISE (RECOMMANDE)
+════════════════════════════════════════════════════════════════════════════
+
+Windows:
+────────
+Double-cliquez sur: deploy.bat
+
+OU ouvrez le terminal et tapez:
+deploy.bat
+
+
+Mac/Linux:
+──────────
+Ouvrez le terminal et tapez:
+bash deploy.sh
+
+
+Le script fera TOUT automatiquement ! ✅
+
+
+OPTION 2: FAIRE MANUELLEMENT
+════════════════════════════════════════════════════════════════════════════
+
+Lisez le fichier: COMMANDES_EXACTES.txt
+
+Il contient toutes les commandes à copier-coller.
+
+
+FICHIERS UTILES
+════════════════════════════════════════════════════════════════════════════
+
+1. IMPORTER_FICHIERS.txt
+   └─ Guide détaillé pour importer vos fichiers
+
+2. COMMANDES_EXACTES.txt
+   └─ Commandes à copier-coller
+
+3. deploy.bat (Windows)
+   └─ Script automatisé
+
+4. deploy.sh (Mac/Linux)
+   └─ Script automatisé
+
+
+APRES AVOIR IMPORTE VOS FICHIERS
+════════════════════════════════════════════════════════════════════════════
+
+1. Allez sur: https://github.com/VOTRE_USERNAME/assemblage
+2. Vérifiez que vos fichiers sont là
+3. Allez sur: https://render.com
+4. Connectez-vous avec GitHub
+5. Cliquez sur "New +" puis "Web Service"
+6. Sélectionnez votre dépôt "assemblage"
+7. Configurez et déployez
+
+
+RESUME
+════════════════════════════════════════════════════════════════════════════
+
+1. Lancer le script deploy.bat ou deploy.sh
+2. Vérifier que les fichiers sont sur GitHub
+3. Aller sur Render et déployer
+
+C'est tout ! 🎉
+
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                  ✅ C'EST TOUT ! C'EST SIMPLE ! ✅                        ║
+║                                                                            ║
+║              Lancez le script et vos fichiers seront importés !           ║
+║                                                                            ║
+║                    Bonne chance ! 🚀                                      ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+

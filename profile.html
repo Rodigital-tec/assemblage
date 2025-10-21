@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon profil - Assembl'âge</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="theme_officiel_exact.css" rel="stylesheet">
+    <link href="header_exact_officiel.css" rel="stylesheet">
+    
+    <style>
+        .profile-container {
+            margin-top: 70px;
+            padding: 2rem 0;
+            min-height: calc(100vh - 70px);
+        }
+        
+        .profile-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 1rem;
+            border: 4px solid rgba(255,255,255,0.3);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        .profile-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .profile-type {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            opacity: 0.9;
+            margin: 0 0 1rem 0;
+        }
+        
+        .profile-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .profile-section {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-medium);
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+        
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-gray);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .edit-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .edit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(154, 205, 50, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .section-content {
+            padding: 1.5rem;
+        }
+        
+        .info-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 15px;
+        }
+        
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+        }
+        
+        .info-content {
+            flex: 1;
+        }
+        
+        .info-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-gray);
+            font-size: 0.9rem;
+            margin: 0 0 0.25rem 0;
+        }
+        
+        .info-value {
+            font-family: 'Montserrat', sans-serif;
+            color: #6c757d;
+            margin: 0;
+            font-size: 1rem;
+        }
+        
+        .driving-license {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 15px;
+            margin-top: 1rem;
+        }
+        
+        .license-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+        }
+        
+        .license-icon.has-license {
+            background: var(--primary-green);
+        }
+        
+        .license-icon.no-license {
+            background: #6c757d;
+        }
+        
+        .license-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-gray);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: var(--light-gray);
+            border-radius: 15px;
+        }
+        
+        .stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .stat-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            color: var(--primary-gray);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .presentation-text {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--primary-gray);
+            margin: 0;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 15px;
+        }
+        
+        .loading-state {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+        }
+        
+        .loading-state i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+        
+        @media (max-width: 768px) {
+            .profile-container {
+                margin-top: 60px;
+                padding: 1rem 0;
+            }
+            
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+            
+            .profile-name {
+                font-size: 1.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="main-navigation">
+        <div class="nav-content-official">
+            <div class="nav-logo-official">
+                <a href="index.html" class="logo-link-official">
+                    <img src="logo_assemblage_nouveau.png" alt="Assembl'âge Employeur-Employés" class="logo-img-official">
+                </a>
+            </div>
+            
+            <div class="nav-links-official">
+                <a href="dashboard.html" class="nav-btn-official nav-dashboard">Tableau de bord</a>
+                <a href="profile.html" class="nav-btn-official nav-offers">Mes offres</a>
+                <a href="search.html" class="nav-btn-official nav-search">Recherche</a>
+                <a href="messages.html" class="nav-btn-official nav-messages">Messages</a>
+                <a href="profile.html" class="nav-btn-official nav-profile">Mon profil</a>
+            </div>
+
+            <div class="nav-user-info">
+                <span class="user-name-official" id="nav-user-name">Utilisateur</span>
+                <span class="user-type-official" id="nav-user-type">Senior</span>
+                <button onclick="logout()" class="nav-btn-official nav-btn-logout">Déconnexion</button>
+            </div>
+
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    
+    <main class="main-content">
+        <div class="profile-container">
+            <div class="container">
+                <!-- En-tête du profil -->
+                <div class="profile-header">
+                    <div class="profile-avatar" id="profileAvatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h1 class="profile-name" id="profileName">Chargement...</h1>
+                    <p class="profile-type" id="profileType">Chargement...</p>
+                    <div class="profile-badge" id="profileBadge">Membre</div>
+                </div>
+                
+                <!-- Contenu du profil -->
+                <div class="profile-content">
+                    <!-- Informations personnelles -->
+                    <div class="profile-section">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-user"></i>
+                                Informations personnelles
+                            </h3>
+                            <a href="#" class="edit-btn" onclick="editPersonalInfo()">
+                                <i class="fas fa-edit"></i>
+                                Modifier
+                            </a>
+                        </div>
+                        <div class="section-content">
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <div class="info-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <p class="info-label">Email</p>
+                                        <p class="info-value" id="userEmail">Chargement...</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="info-item">
+                                    <div class="info-icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <p class="info-label">Téléphone</p>
+                                        <p class="info-value" id="userPhone">Chargement...</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="info-item">
+                                    <div class="info-icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <p class="info-label">Adresse</p>
+                                        <p class="info-value" id="userAddress">Chargement...</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="info-item">
+                                    <div class="info-icon">
+                                        <i class="fas fa-city"></i>
+                                    </div>
+                                    <div class="info-content">
+                                        <p class="info-label">Ville</p>
+                                        <p class="info-value" id="userCity">Chargement...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="driving-license" id="drivingLicense">
+                                <div class="license-icon" id="licenseIcon">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                                <span class="license-text" id="licenseText">Chargement...</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Présentation et statistiques -->
+                    <div class="profile-section">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-info-circle"></i>
+                                Présentation
+                            </h3>
+                            <a href="#" class="edit-btn" onclick="editPresentation()">
+                                <i class="fas fa-edit"></i>
+                                Modifier
+                            </a>
+                        </div>
+                        <div class="section-content">
+                            <p class="presentation-text" id="userPresentation">Chargement...</p>
+                            
+                            <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 600; color: var(--primary-gray); margin: 2rem 0 1rem 0;">
+                                <i class="fas fa-chart-bar me-2"></i>Statistiques
+                            </h4>
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <p class="stat-number" id="statRequests">0</p>
+                                    <p class="stat-label" id="statRequestsLabel">Demandes</p>
+                                </div>
+                                <div class="stat-card">
+                                    <p class="stat-number" id="statMessages">0</p>
+                                    <p class="stat-label">Messages</p>
+                                </div>
+                                <div class="stat-card">
+                                    <p class="stat-number" id="statHelps">0</p>
+                                    <p class="stat-label" id="statHelpsLabel">Aides</p>
+                                </div>
+                                <div class="stat-card">
+                                    <p class="stat-number" id="statDays">0</p>
+                                    <p class="stat-label">Jours</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Variables globales
+        let currentUser = null;
+        let userType = 'senior';
+        
+        // Données utilisateur par défaut selon l'email de session
+        const userData = {
+            'marie.dupont@email.com': {
+                first_name: 'Marie',
+                last_name: 'Dupont',
+                email: 'marie.dupont@email.com',
+                phone: '+41 22 123 45 67',
+                address: '15 Rue du Lac',
+                city: 'Carouge',
+                postal_code: '1227',
+                driving_license: false,
+                presentation: 'Retraitée active, j\'aime jardiner et cuisiner. Je cherche de l\'aide pour les tâches ménagères et les courses.',
+                user_type: 'senior',
+                created_at: '2024-08-15'
+            },
+            'sophie.leroy@email.com': {
+                first_name: 'Sophie',
+                last_name: 'Leroy',
+                email: 'sophie.leroy@email.com',
+                phone: '+41 22 456 78 90',
+                address: '22 Chemin des Fleurs',
+                city: 'Genève',
+                postal_code: '1202',
+                driving_license: true,
+                presentation: 'Infirmière à temps partiel, disponible pour aider les seniors. J\'ai de l\'expérience en soins à domicile.',
+                user_type: 'aidant',
+                created_at: '2024-09-08'
+            },
+            'admin@assemblage.com': {
+                first_name: 'Admin',
+                last_name: 'Système',
+                email: 'admin@assemblage.com',
+                phone: '+41 22 000 00 00',
+                address: '1 Place de l\'Administration',
+                city: 'Genève',
+                postal_code: '1200',
+                driving_license: true,
+                presentation: 'Administrateur système de la plateforme Assembl\'âge.',
+                user_type: 'admin',
+                created_at: '2024-01-01'
+            }
+        };
+        
+        // Fonction pour obtenir les initiales
+        function getInitials(firstName, lastName) {
+            return (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
+        }
+        
+        // Fonction pour calculer les jours depuis l'inscription
+        function getDaysSinceCreation(createdAt) {
+            const created = new Date(createdAt);
+            const now = new Date();
+            const diffTime = Math.abs(now - created);
+            return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        }
+        
+        // Charger le profil utilisateur
+        async function loadUserProfile() {
+            try {
+                // Essayer de récupérer depuis l'API
+                const response = await fetch('/api/user/profile');
+                const data = await response.json();
+                
+                if (data.success && data.profile) {
+                    currentUser = data.profile;
+                    userType = data.profile.user_type || 'senior';
+                    renderProfile(data.profile);
+                } else {
+                    // Utiliser les données locales basées sur la session
+                    loadUserFromSession();
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement du profil:', error);
+                // Utiliser les données locales basées sur la session
+                loadUserFromSession();
+            }
+        }
+        
+        // Charger l'utilisateur depuis la session/localStorage
+        function loadUserFromSession() {
+            // Essayer de récupérer l'email depuis localStorage ou sessionStorage
+            let userEmail = localStorage.getItem('userEmail') || 
+                           sessionStorage.getItem('userEmail') ||
+                           localStorage.getItem('user_email') ||
+                           sessionStorage.getItem('user_email');
+            
+            // Si pas d'email trouvé, utiliser l'utilisateur par défaut
+            if (!userEmail || !userData[userEmail]) {
+                userEmail = 'marie.dupont@email.com'; // Utilisateur par défaut
+            }
+            
+            const user = userData[userEmail];
+            if (user) {
+                currentUser = user;
+                userType = user.user_type;
+                renderProfile(user);
+            }
+        }
+        
+        // Afficher le profil
+        function renderProfile(user) {
+            // Avatar avec initiales
+            const avatar = document.getElementById('profileAvatar');
+            avatar.textContent = getInitials(user.first_name, user.last_name);
+            
+            // Nom et type
+            document.getElementById('profileName').textContent = `${user.first_name} ${user.last_name}`;
+            
+            const typeText = user.user_type === 'senior' ? 'Senior' : 
+                           user.user_type === 'aidant' ? 'Aidant' : 'Administrateur';
+            document.getElementById('profileType').textContent = typeText;
+            
+            const badgeText = user.user_type === 'senior' ? 'Membre Senior' : 
+                            user.user_type === 'aidant' ? 'Aidant Certifié' : 'Administrateur';
+            document.getElementById('profileBadge').textContent = badgeText;
+            
+            // Informations personnelles
+            document.getElementById('userEmail').textContent = user.email;
+            document.getElementById('userPhone').textContent = user.phone || 'Non renseigné';
+            document.getElementById('userAddress').textContent = user.address || 'Non renseignée';
+            document.getElementById('userCity').textContent = `${user.city || 'Non renseignée'} ${user.postal_code || ''}`.trim();
+            
+            // Permis de conduire
+            const licenseIcon = document.getElementById('licenseIcon');
+            const licenseText = document.getElementById('licenseText');
+            
+            if (user.driving_license) {
+                licenseIcon.className = 'license-icon has-license';
+                licenseText.textContent = 'Permis de conduire';
+            } else {
+                licenseIcon.className = 'license-icon no-license';
+                licenseText.textContent = 'Pas de permis de conduire';
+            }
+            
+            // Présentation
+            document.getElementById('userPresentation').textContent = user.presentation || 'Aucune présentation renseignée.';
+            
+            // Statistiques
+            const days = getDaysSinceCreation(user.created_at);
+            document.getElementById('statDays').textContent = days;
+            
+            // Adapter les statistiques selon le type d'utilisateur
+            if (user.user_type === 'senior') {
+                document.getElementById('statRequestsLabel').textContent = 'Demandes';
+                document.getElementById('statHelpsLabel').textContent = 'Aides reçues';
+                document.getElementById('statRequests').textContent = '3';
+                document.getElementById('statMessages').textContent = '12';
+                document.getElementById('statHelps').textContent = '8';
+            } else if (user.user_type === 'aidant') {
+                document.getElementById('statRequestsLabel').textContent = 'Offres';
+                document.getElementById('statHelpsLabel').textContent = 'Aides apportées';
+                document.getElementById('statRequests').textContent = '5';
+                document.getElementById('statMessages').textContent = '24';
+                document.getElementById('statHelps').textContent = '15';
+            } else {
+                document.getElementById('statRequestsLabel').textContent = 'Gestion';
+                document.getElementById('statHelpsLabel').textContent = 'Support';
+                document.getElementById('statRequests').textContent = '50';
+                document.getElementById('statMessages').textContent = '100';
+                document.getElementById('statHelps').textContent = '25';
+            }
+        }
+        
+        // Fonctions d'édition
+        function editPersonalInfo() {
+            const userType = currentUser?.user_type || 'senior';
+            if (userType === 'senior') {
+                window.location.href = 'profile-senior-complet.html';
+            } else {
+                window.location.href = 'profile-aidant-complet.html';
+            }
+        }
+        
+        function editPresentation() {
+            editPersonalInfo(); // Même page pour l'instant
+        }
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserProfile();
+        });
+
+        // Fonction pour le menu burger mobile
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links-official');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (navLinks && menuToggle) {
+                navLinks.classList.toggle('mobile-open');
+                menuToggle.classList.toggle('open');
+            }
+        }
+
+        // Fonction de déconnexion
+        function logout() {
+            fetch('/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '/';
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors de la déconnexion:', error);
+                window.location.href = '/';
+            });
+        }
+    </script>
+    
+    <script src="navigation_fixed.js"></script>
+</body>
+</html>
+

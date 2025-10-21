@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rechercher des demandes - Assembl'âge</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="theme_officiel_exact.css" rel="stylesheet">
+    <link href="header_exact_officiel.css" rel="stylesheet">
+    <link href="header_mobile_improved.css" rel="stylesheet">
+    <link href="icons_svg_monochrome.css" rel="stylesheet">
+    <link href="theme_ultra_modern.css" rel="stylesheet">
+    <style>
+        /* Empêcher le débordement horizontal */
+        html {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+        
+        body {
+            overflow-x: hidden;
+            max-width: 100vw;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container-fluid {
+            max-width: 100%;
+            overflow-x: hidden;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        .row {
+            margin-left: 0;
+            margin-right: 0;
+            max-width: 100%;
+        }
+        
+        main {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        /* Empêcher le menu mobile de causer un débordement */
+        .mobile-menu {
+            max-width: 100vw !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        
+        /* Empêcher le header de causer un débordement */
+        .header-official,
+        .nav-container-official {
+            max-width: 100vw !important;
+            box-sizing: border-box !important;
+        }
+        
+        .search-filters {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            max-width: 100%;
+        }
+        
+        .help-request-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: box-shadow 0.3s ease;
+            max-width: 100%;
+        }
+        
+        .help-request-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .service-badge {
+            font-size: 0.8em;
+            padding: 4px 8px;
+            margin: 2px;
+            border-radius: 15px;
+        }
+        
+        .urgent-badge {
+            background-color: #ff4757;
+            color: white;
+            font-size: 0.7em;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+        
+        .rate-badge {
+            background-color: #00CED1;
+            color: white;
+            font-size: 0.8em;
+            padding: 4px 8px;
+            border-radius: 15px;
+        }
+    </style>
+    <link href="responsive_navigation.css" rel="stylesheet">
+    <link href="mobile_fix.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-official">
+        <div class="nav-container-official">
+            <a href="/" class="nav-logo-official">
+                <img src="1000034260.png" alt="Assembl'âge Employeur-Employés" class="logo-image-official">
+            </a>
+            
+            <nav class="nav-links-official">
+                <a href="dashboard.html" class="nav-link-official">Tableau de bord</a>
+                <a href="my-service-offers.html" class="nav-link-official">Mes offres</a>
+                <a href="search.html" class="nav-link-official active">Recherche</a>
+                <a href="messages.html" class="nav-link-official">Messages</a>
+                <a href="profile.html" class="nav-link-official">Mon profil</a>
+            </nav>
+            
+            <div class="nav-user-info">
+                <span class="user-name">Utilisateur</span>
+                <span class="user-badge">Senior</span>
+                <button onclick="logout()" class="logout-btn">Déconnexion</button>
+                <button class="notification-btn"><span class="icon-notification"></span> <span class="notification-count">0</span></button>
+            </div>
+            
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="container-fluid" style="margin-top: 70px; max-width: 1200px; padding: 0 20px; margin-left: auto; margin-right: auto;">
+            <!-- Contenu principal -->
+            <main style="max-width: 100%; width: 100%;">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2" style="color: #4A4A4A;">
+                        <i class="fas fa-search me-2" style="color: #00CED1;"></i>
+                        Rechercher des demandes d'aide
+                    </h1>
+                </div>
+
+                <!-- Filtres de recherche -->
+                <div class="search-filters">
+                    <h5 class="mb-3" style="color: #4A4A4A;">
+                        <i class="fas fa-filter me-2" style="color: #9ACD32;"></i>
+                        Filtres de recherche
+                    </h5>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="search-text" class="form-label">Recherche par mots-clés</label>
+                            <input type="text" class="form-control" id="search-text" placeholder="Titre, description...">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="service-filter" class="form-label">Type de service</label>
+                            <select class="form-select" id="service-filter">
+                                <option value="">Tous les services</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="location-filter" class="form-label">Localisation</label>
+                            <input type="text" class="form-control" id="location-filter" placeholder="Ville, code postal...">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Options</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="urgent-only">
+                                <label class="form-check-label" for="urgent-only">
+                                    <i class="fas fa-exclamation-triangle me-1" style="color: #ff6b6b;"></i>
+                                    Urgent uniquement
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="driving-license-only">
+                                <label class="form-check-label" for="driving-license-only">
+                                    <i class="fas fa-car me-1" style="color: var(--vert-lime);"></i>
+                                    Avec permis de conduire
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <button class="btn btn-primary me-2" onclick="searchRequests()" style="background-color: #9ACD32; border-color: #9ACD32;">
+                                <i class="fas fa-search me-2"></i>
+                                Rechercher
+                            </button>
+                            <button class="btn btn-outline-secondary" onclick="clearFilters()">
+                                <i class="fas fa-times me-2"></i>
+                                Effacer les filtres
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Résultats de recherche -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 style="color: #4A4A4A;">
+                        <i class="fas fa-list me-2" style="color: #00CED1;"></i>
+                        Demandes d'aide disponibles
+                        <span class="badge bg-secondary ms-2" id="results-count">0</span>
+                    </h5>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="sortBy('date')" id="sort-date">
+                            <i class="fas fa-calendar me-1"></i>
+                            Date
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="sortBy('urgent')" id="sort-urgent">
+                            <i class="fas fa-exclamation me-1"></i>
+                            Urgence
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="sortBy('rate')" id="sort-rate">
+                            <i class="fas fa-money-bill me-1"></i>
+                            Tarif
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Liste des demandes -->
+                <div id="help-requests-container">
+                    <!-- Les demandes seront chargées ici -->
+                </div>
+
+                <!-- Message si aucune demande -->
+                <div id="no-requests" class="text-center py-5" style="display: none;">
+                    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                    <h5 class="text-muted">Aucune demande trouvée</h5>
+                    <p class="text-muted">Essayez de modifier vos critères de recherche.</p>
+                </div>
+            </main>
+    </div>
+
+    <!-- Modal pour proposer son aide -->
+    <div class="modal fade" id="offerHelpModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #9ACD32; color: white;">
+                    <h5 class="modal-title">
+                        <i class="fas fa-hand-holding-heart me-2"></i>
+                        Proposer mon aide
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="offer-help-form">
+                        <input type="hidden" id="help-request-id">
+                        <div class="mb-3">
+                            <label for="offer-message" class="form-label">Message pour le senior *</label>
+                            <textarea class="form-control" id="offer-message" rows="4" 
+                                placeholder="Présentez-vous et expliquez comment vous pouvez aider..." required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="offer-rate" class="form-label">Votre tarif proposé (CHF/heure)</label>
+                            <input type="number" class="form-control" id="offer-rate" min="0" step="0.5" 
+                                placeholder="Optionnel">
+                        </div>
+                        <div class="mb-3">
+                            <label for="offer-availability" class="form-label">Vos disponibilités</label>
+                            <textarea class="form-control" id="offer-availability" rows="2" 
+                                placeholder="Indiquez vos créneaux disponibles..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" onclick="submitOffer()" 
+                        style="background-color: #9ACD32; border-color: #9ACD32;">
+                        <i class="fas fa-paper-plane me-2"></i>
+                        Envoyer ma proposition
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let helpRequests = [];
+        let serviceTypes = [];
+        let currentSort = 'date';
+
+        // Charger les données au démarrage
+        document.addEventListener('DOMContentLoaded', function() {
+            loadServiceTypes();
+            loadHelpRequests();
+        });
+
+        // Charger les types de services pour le filtre
+        async function loadServiceTypes() {
+            try {
+                const response = await fetch('/api/service-types');
+                const data = await response.json();
+                if (data.success) {
+                    serviceTypes = data.service_types;
+                    populateServiceFilter();
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des services:', error);
+            }
+        }
+
+        // Remplir le filtre des services
+        function populateServiceFilter() {
+            const select = document.getElementById('service-filter');
+            serviceTypes.forEach(service => {
+                if (service.is_active) {
+                    const option = document.createElement('option');
+                    option.value = service.id;
+                    option.textContent = service.name;
+                    select.appendChild(option);
+                }
+            });
+        }
+
+        // Charger les demandes d'aide
+        async function loadHelpRequests() {
+            try {
+                const response = await fetch('/api/help-requests?status=ouvert');
+                const data = await response.json();
+                if (data.success) {
+                    helpRequests = data.help_requests;
+                    renderHelpRequests();
+                } else {
+                    showError('Erreur lors du chargement des demandes: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des demandes:', error);
+                showError('Erreur de connexion au serveur');
+            }
+        }
+
+        // Afficher les demandes d'aide
+        function renderHelpRequests(filteredRequests = null) {
+            const container = document.getElementById('help-requests-container');
+            const noRequestsDiv = document.getElementById('no-requests');
+            const requests = filteredRequests || helpRequests;
+            
+            // Mettre à jour le compteur
+            document.getElementById('results-count').textContent = requests.length;
+            
+            if (requests.length === 0) {
+                container.innerHTML = '';
+                noRequestsDiv.style.display = 'block';
+                return;
+            }
+
+            noRequestsDiv.style.display = 'none';
+            container.innerHTML = requests.map(request => `
+                <div class="help-request-card p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h5 class="mb-1">
+                                ${request.title}
+                                ${request.is_urgent ? '<span class="urgent-badge ms-2">URGENT</span>' : ''}
+                            </h5>
+                            <small class="text-muted">
+                                Créée le ${new Date(request.created_at).toLocaleDateString('fr-FR')}
+                                ${request.senior_name ? ' par ' + request.senior_name : ''}
+                            </small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            ${request.proposed_rate ? `<span class="rate-badge me-2">${request.proposed_rate} CHF/h</span>` : ''}
+                            <button class="btn btn-primary btn-sm" onclick="openOfferModal(${request.id})" 
+                                style="background-color: #00CED1; border-color: #00CED1;">
+                                <i class="fas fa-hand-holding-heart me-1"></i>
+                                Proposer mon aide
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <p class="mb-3">${request.description}</p>
+                    
+                    <div class="d-flex flex-wrap align-items-center">
+                        <span class="me-3">
+                            <i class="fas fa-tags me-1" style="color: #9ACD32;"></i>
+                            Services :
+                        </span>
+                        ${request.services ? request.services.map(service => 
+                            `<span class="service-badge" style="background-color: ${service.service_type?.color || '#9ACD32'}; color: white;">
+                                <i class="${service.service_type?.icon || 'fas fa-hand-holding-heart'} me-1"></i>
+                                ${service.service_type?.name || 'Service'}
+                            </span>`
+                        ).join('') : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Rechercher avec filtres
+        function searchRequests() {
+            const searchText = document.getElementById('search-text').value.toLowerCase();
+            const serviceId = document.getElementById('service-filter').value;
+            const location = document.getElementById('location-filter').value.toLowerCase();
+            const urgentOnly = document.getElementById('urgent-only').checked;
+
+            let filtered = helpRequests.filter(request => {
+                // Filtre par texte
+                if (searchText && !request.title.toLowerCase().includes(searchText) && 
+                    !request.description.toLowerCase().includes(searchText)) {
+                    return false;
+                }
+
+                // Filtre par service
+                if (serviceId && !request.services?.some(s => s.service_type_id == serviceId)) {
+                    return false;
+                }
+
+                // Filtre par localisation (à implémenter selon le modèle)
+                // if (location && !request.location?.toLowerCase().includes(location)) {
+                //     return false;
+                // }
+
+                // Filtre urgent
+                if (urgentOnly && !request.is_urgent) {
+                    return false;
+                }
+
+                return true;
+            });
+
+            // Appliquer le tri
+            filtered = sortRequests(filtered, currentSort);
+            renderHelpRequests(filtered);
+        }
+
+        // Effacer les filtres
+        function clearFilters() {
+            document.getElementById('search-text').value = '';
+            document.getElementById('service-filter').value = '';
+            document.getElementById('location-filter').value = '';
+            document.getElementById('urgent-only').checked = false;
+            renderHelpRequests();
+        }
+
+        // Trier les demandes
+        function sortBy(type) {
+            currentSort = type;
+            
+            // Mettre à jour l'apparence des boutons
+            document.querySelectorAll('[id^="sort-"]').forEach(btn => {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-outline-secondary');
+            });
+            document.getElementById('sort-' + type).classList.remove('btn-outline-secondary');
+            document.getElementById('sort-' + type).classList.add('btn-primary');
+
+            const filtered = getCurrentFilteredRequests();
+            const sorted = sortRequests(filtered, type);
+            renderHelpRequests(sorted);
+        }
+
+        // Fonction de tri
+        function sortRequests(requests, type) {
+            return [...requests].sort((a, b) => {
+                switch (type) {
+                    case 'date':
+                        return new Date(b.created_at) - new Date(a.created_at);
+                    case 'urgent':
+                        if (a.is_urgent && !b.is_urgent) return -1;
+                        if (!a.is_urgent && b.is_urgent) return 1;
+                        return new Date(b.created_at) - new Date(a.created_at);
+                    case 'rate':
+                        const rateA = a.proposed_rate || 0;
+                        const rateB = b.proposed_rate || 0;
+                        return rateB - rateA;
+                    default:
+                        return 0;
+                }
+            });
+        }
+
+        // Obtenir les demandes filtrées actuelles
+        function getCurrentFilteredRequests() {
+            // Réappliquer les filtres actuels
+            const searchText = document.getElementById('search-text').value.toLowerCase();
+            const serviceId = document.getElementById('service-filter').value;
+            const location = document.getElementById('location-filter').value.toLowerCase();
+            const urgentOnly = document.getElementById('urgent-only').checked;
+
+            return helpRequests.filter(request => {
+                if (searchText && !request.title.toLowerCase().includes(searchText) && 
+                    !request.description.toLowerCase().includes(searchText)) {
+                    return false;
+                }
+                if (serviceId && !request.services?.some(s => s.service_type_id == serviceId)) {
+                    return false;
+                }
+                if (urgentOnly && !request.is_urgent) {
+                    return false;
+                }
+                return true;
+            });
+        }
+
+        // Ouvrir la modal pour proposer son aide
+        function openOfferModal(requestId) {
+            document.getElementById('help-request-id').value = requestId;
+            document.getElementById('offer-message').value = '';
+            document.getElementById('offer-rate').value = '';
+            document.getElementById('offer-availability').value = '';
+            
+            const modal = new bootstrap.Modal(document.getElementById('offerHelpModal'));
+            modal.show();
+        }
+
+        // Soumettre une proposition d'aide
+        async function submitOffer() {
+            const requestId = document.getElementById('help-request-id').value;
+            const message = document.getElementById('offer-message').value;
+            const rate = document.getElementById('offer-rate').value;
+            const availability = document.getElementById('offer-availability').value;
+
+            if (!message.trim()) {
+                showError('Veuillez saisir un message');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/help-offers', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        help_request_id: parseInt(requestId),
+                        message: message,
+                        proposed_rate: rate ? parseFloat(rate) : null,
+                        availability: availability
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    showSuccess('Votre proposition d\'aide a été envoyée avec succès');
+                    bootstrap.Modal.getInstance(document.getElementById('offerHelpModal')).hide();
+                    loadHelpRequests(); // Recharger la liste
+                } else {
+                    showError(result.error || 'Erreur lors de l\'envoi de la proposition');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                showError('Erreur de connexion au serveur');
+            }
+        }
+
+        // Fonctions utilitaires
+        function showSuccess(message) {
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success alert-dismissible fade show position-fixed';
+            alert.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 5000);
+        }
+
+        function showError(message) {
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-danger alert-dismissible fade show position-fixed';
+            alert.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 5000);
+        }
+
+        function contactAdmin() {
+            alert('Fonctionnalité de contact admin à implémenter');
+        }
+
+        // Fonction de déconnexion
+        function logout() {
+            // Effacer toutes les données de session locale
+            localStorage.removeItem('isAuthenticated');
+            localStorage.removeItem('userType');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userEmail');
+            sessionStorage.clear();
+            
+            // Appeler l'API de déconnexion
+            fetch('/api/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Rediriger vers la page de connexion
+                window.location.href = '/login.html';
+            })
+            .catch(error => {
+                console.error('Erreur lors de la déconnexion:', error);
+                // Rediriger quand même vers la page de connexion
+                window.location.href = '/login.html';
+            });
+        }
+
+        // Fonction pour le menu burger mobile
+        function toggleMobileMenu() {
+            let mobileMenu = document.querySelector('.mobile-menu');
+            
+            if (!mobileMenu) {
+                // Créer le menu mobile s'il n'existe pas
+                mobileMenu = document.createElement('div');
+                mobileMenu.className = 'mobile-menu';
+                mobileMenu.innerHTML = `
+                    <a href="dashboard.html">Tableau de bord</a>
+                    <a href="my-service-offers.html">Mes offres</a>
+                    <a href="search.html" class="active">Recherche</a>
+                    <a href="messages.html">Messages</a>
+                    <a href="profile.html">Mon profil</a>
+                    <div class="mobile-user-info">
+                        <div class="mobile-user-badge">Senior</div>
+                        <button onclick="logout()" class="mobile-logout-btn">Déconnexion</button>
+                        <button class="mobile-notification-btn"><span class="icon-notification"></span> Notifications (0)</button>
+                    </div>
+                `;
+                document.body.appendChild(mobileMenu);
+            }
+            
+            mobileMenu.classList.toggle('active');
+        }
+    </script>
+    <script src="responsive_navigation.js"></script>
+</body>
+</html>>
+

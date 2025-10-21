@@ -1,0 +1,150 @@
+================================================================================
+                    COMMANDES GIT - COPIER-COLLER
+================================================================================
+
+ETAPE 1 : INITIALISER GIT LOCALEMENT
+================================================================================
+
+git init
+git add .
+git commit -m "Préparation déploiement Render"
+
+
+ETAPE 2 : CREER UN DEPOT GITHUB
+================================================================================
+
+1. Allez sur https://github.com/new
+2. Remplissez :
+   - Repository name: assemblage
+   - Description: Application Assembl'âge
+   - Public (pour que Render puisse y accéder)
+3. Cliquez "Create repository"
+
+
+ETAPE 3 : CONNECTER VOTRE DEPOT LOCAL A GITHUB
+================================================================================
+
+REMPLACEZ "VOTRE_USERNAME" par votre nom d'utilisateur GitHub !
+
+git remote add origin https://github.com/VOTRE_USERNAME/assemblage.git
+git branch -M main
+git push -u origin main
+
+
+ETAPE 4 : VERIFIER QUE TOUT EST POUSSE
+================================================================================
+
+git log --oneline
+git remote -v
+
+
+ETAPE 5 : DEPLOYER SUR RENDER
+================================================================================
+
+1. Allez sur https://render.com
+2. Connectez-vous avec votre compte GitHub
+3. Cliquez "New +" → "Web Service"
+4. Sélectionnez votre dépôt "assemblage"
+5. Remplissez :
+   - Name: assemblage-app
+   - Environment: Python 3
+   - Build Command: pip install -r requirements.txt
+   - Start Command: gunicorn app:app
+   - Plan: Free
+6. Cliquez "Create Web Service"
+
+
+ETAPE 6 : CONFIGURER LES VARIABLES D'ENVIRONNEMENT
+================================================================================
+
+Dans le dashboard Render :
+1. Allez à "Environment"
+2. Ajoutez les variables :
+
+FLASK_ENV=production
+SECRET_KEY=your_random_secret_key_here
+
+
+ETAPE 7 : ATTENDRE LE DEPLOIEMENT
+================================================================================
+
+Render va :
+1. Cloner votre dépôt
+2. Installer les dépendances (pip install -r requirements.txt)
+3. Démarrer l'application (gunicorn app:app)
+4. Vous donner une URL : https://assemblage-app.onrender.com
+
+
+ETAPE 8 : METTRE A JOUR VOTRE APPLICATION
+================================================================================
+
+Pour mettre à jour votre application après des modifications :
+
+git add .
+git commit -m "Description de vos modifications"
+git push origin main
+
+Render redéploiera automatiquement !
+
+
+COMMANDES UTILES
+================================================================================
+
+# Voir l'historique des commits
+git log --oneline
+
+# Voir le statut des fichiers
+git status
+
+# Voir les branches
+git branch -a
+
+# Voir les dépôts distants
+git remote -v
+
+# Annuler le dernier commit (avant push)
+git reset --soft HEAD~1
+
+# Voir les différences
+git diff
+
+
+TROUBLESHOOTING
+================================================================================
+
+# Si vous avez une erreur "fatal: not a git repository"
+git init
+
+# Si vous avez une erreur "fatal: 'origin' does not appear to be a 'git' repository"
+git remote add origin https://github.com/VOTRE_USERNAME/assemblage.git
+
+# Si vous avez une erreur "fatal: The current branch main has no upstream branch"
+git push -u origin main
+
+# Si vous avez une erreur d'authentification
+# Utilisez un Personal Access Token au lieu de votre mot de passe
+# https://github.com/settings/tokens
+
+
+NOTES IMPORTANTES
+================================================================================
+
+⚠️  REMPLACEZ "VOTRE_USERNAME" par votre vrai nom d'utilisateur GitHub !
+
+⚠️  Assurez-vous que votre dépôt est PUBLIC pour que Render puisse y accéder
+
+⚠️  Gardez votre SECRET_KEY secrète ! Ne la commitez jamais dans Git
+
+⚠️  Utilisez des variables d'environnement pour les données sensibles
+
+
+BESOIN D'AIDE ?
+================================================================================
+
+Consultez :
+- QUICK_START.md          - Guide rapide
+- DEPLOIEMENT_RENDER.md   - Guide complet
+- RESUME_DEPLOIEMENT.txt  - Résumé complet
+
+================================================================================
+

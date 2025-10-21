@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord - Assembl'âge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="theme_officiel_exact.css">
+    <link rel="stylesheet" href="header_exact_officiel.css">
+    <style>
+        :root {
+            --primary-green: #9ACD32;
+            --primary-turquoise: #00A0B0;
+            --light-green: #F0F8E8;
+            --light-turquoise: #E8F8F9;
+            --white: #ffffff;
+            --gray-50: #FAFAFA;
+            --gray-100: #F5F5F5;
+            --gray-200: #EEEEEE;
+            --gray-300: #E0E0E0;
+            --gray-600: #757575;
+            --gray-800: #424242;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 25px rgba(0,0,0,0.1);
+            --border-radius: 16px;
+            --border-radius-sm: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--gray-50);
+            min-height: 100vh;
+            color: var(--gray-800);
+            line-height: 1.6;
+            padding-top: 60px;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        /* Section d'accueil moderne */
+        .welcome-section {
+            background: var(--white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .welcome-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .user-avatar {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-turquoise));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .welcome-text h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 4px;
+        }
+
+        .welcome-text p {
+            color: var(--gray-600);
+            font-size: 16px;
+        }
+
+        .user-badge {
+            background: var(--light-turquoise);
+            color: var(--primary-turquoise);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-left: auto;
+        }
+
+        /* Grille moderne des statistiques */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), var(--primary-turquoise));
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .stat-icon.green {
+            background: var(--light-green);
+            color: var(--primary-green);
+        }
+
+        .stat-icon.turquoise {
+            background: var(--light-turquoise);
+            color: var(--primary-turquoise);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray-600);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-description {
+            font-size: 14px;
+            color: var(--gray-600);
+            margin-top: 8px;
+        }
+
+        /* Actions rapides modernes */
+        .actions-section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-turquoise));
+            border-radius: 2px;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .action-card {
+            background: var(--white);
+            padding: 24px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .action-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .action-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .action-card:nth-child(1) .action-icon {
+            background: var(--light-green);
+            color: var(--primary-green);
+        }
+
+        .action-card:nth-child(2) .action-icon {
+            background: var(--light-turquoise);
+            color: var(--primary-turquoise);
+        }
+
+        .action-card:nth-child(3) .action-icon {
+            background: var(--light-green);
+            color: var(--primary-green);
+        }
+
+        .action-card:nth-child(4) .action-icon {
+            background: var(--light-turquoise);
+            color: var(--primary-turquoise);
+        }
+
+        .action-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+        }
+
+        .action-description {
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+
+        /* Section récente moderne */
+        .recent-section {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .recent-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+        }
+
+        .recent-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .recent-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .recent-content {
+            padding: 24px;
+            text-align: center;
+            color: var(--gray-600);
+        }
+
+        .empty-state {
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gray-100);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 24px;
+            color: var(--gray-600);
+        }
+
+        /* Calendrier moderne */
+        .calendar-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+        }
+
+        .calendar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--gray-50);
+        }
+
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .calendar-nav button {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--white);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .calendar-nav button:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .calendar-month {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 20px 16px;
+            }
+
+            .welcome-section {
+                padding: 24px;
+            }
+
+            .welcome-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .user-badge {
+                margin-left: 0;
+                align-self: flex-start;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .stat-card {
+                padding: 24px;
+            }
+
+            .actions-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .recent-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dashboard-container > * {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .dashboard-container > *:nth-child(2) { animation-delay: 0.1s; }
+        .dashboard-container > *:nth-child(3) { animation-delay: 0.2s; }
+        .dashboard-container > *:nth-child(4) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-official">
+        <div class="nav-container-official">
+            <a href="/" class="nav-logo-official">
+                <img src="1000034260.png" alt="Assembl'âge Employeur-Employés" class="logo-image-official">
+            </a>
+            
+            <nav class="nav-links-official">
+                <a href="dashboard.html" class="nav-link-official active">Tableau de bord</a>
+                <a href="#" class="nav-link-official">Mes offres</a>
+                <a href="#" class="nav-link-official">Recherche</a>
+                <a href="messages.html" class="nav-link-official">Messages</a>
+                <a href="profile.html" class="nav-link-official">Mon profil</a>
+            </nav>
+            
+            <div class="nav-user-info">
+                <span class="user-name">Utilisateur</span>
+                <span class="user-badge">Senior</span>
+                <button onclick="logout()" class="logout-btn">Déconnexion</button>
+                <button class="notification-btn">🔔 <span class="notification-count">0</span></button>
+            </div>
+            
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Section d'accueil -->
+        <div class="welcome-section">
+            <div class="welcome-header">
+                <div class="user-avatar">MD</div>
+                <div class="welcome-text">
+                    <h1>Bonjour Marie ! 👋</h1>
+                    <p>Trouvez de l'aide et connectez-vous avec des aidants bienveillants</p>
+                </div>
+                <div class="user-badge">Senior</div>
+            </div>
+            <p style="color: var(--gray-600); font-size: 14px; margin-top: 16px;">Membre depuis 22 jours</p>
+        </div>
+
+        <!-- Statistiques -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon green">📋</div>
+                </div>
+                <div class="stat-number">5</div>
+                <div class="stat-label">Demandes actives</div>
+                <div class="stat-description">🎯 5 demandes en cours</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon turquoise">💬</div>
+                </div>
+                <div class="stat-number">4</div>
+                <div class="stat-label">Messages reçus</div>
+                <div class="stat-description">💬 4 nouvelles conversations</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon green">🤝</div>
+                </div>
+                <div class="stat-number">0</div>
+                <div class="stat-label">Aides reçues</div>
+                <div class="stat-description">🤝 Trouvez de l'aide</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon turquoise">⭐</div>
+                </div>
+                <div class="stat-number">N/A</div>
+                <div class="stat-label">Statut</div>
+                <div class="stat-description">🌟 Nouveau membre</div>
+            </div>
+        </div>
+
+        <!-- Actions rapides -->
+        <div class="actions-section">
+            <h2 class="section-title">Actions rapides</h2>
+            <div class="actions-grid">
+                <a href="#" class="action-card">
+                    <div class="action-icon">➕</div>
+                    <div class="action-title">Nouvelle demande</div>
+                    <div class="action-description">Publiez une nouvelle demande d'aide pour vos besoins quotidiens</div>
+                </a>
+
+                <a href="#" class="action-card">
+                    <div class="action-icon">🔍</div>
+                    <div class="action-title">Recherche géolocalisée</div>
+                    <div class="action-description">Trouvez des aidants disponibles près de chez vous</div>
+                </a>
+
+                <a href="profile.html" class="action-card">
+                    <div class="action-icon">👤</div>
+                    <div class="action-title">Mon profil</div>
+                    <div class="action-description">Gérez vos informations personnelles et préférences</div>
+                </a>
+
+                <a href="messages.html" class="action-card">
+                    <div class="action-icon">💬</div>
+                    <div class="action-title">Messagerie</div>
+                    <div class="action-description">Communiquez avec les autres membres de la communauté</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Section récente et calendrier -->
+        <div class="recent-section">
+            <div class="recent-card">
+                <div class="recent-header">
+                    <h3 class="recent-title">📋 Demandes récentes</h3>
+                    <a href="#" style="color: var(--primary-turquoise); text-decoration: none; font-size: 14px;">Voir tout</a>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-icon">📋</div>
+                    <p>Aucune demande récente</p>
+                </div>
+            </div>
+
+            <div class="calendar-card">
+                <div class="calendar-header">
+                    <div class="calendar-nav">
+                        <button>‹</button>
+                        <span class="calendar-month">Octobre 2025</span>
+                        <button>›</button>
+                    </div>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-icon">📅</div>
+                    <p>Aucun événement prévu</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nouvelles opportunités -->
+        <div class="recent-card">
+            <div class="recent-header">
+                <h3 class="recent-title">🌟 Nouvelles opportunités</h3>
+                <a href="#" style="color: var(--primary-turquoise); text-decoration: none; font-size: 14px;">Vue complète</a>
+            </div>
+            <div class="empty-state">
+                <div class="empty-icon">🌟</div>
+                <p>Aucune nouvelle opportunité</p>
+                <p style="font-size: 12px; margin-top: 8px;">Les nouveaux aidants disponibles apparaîtront ici</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fonction pour le menu burger mobile
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links-official');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (navLinks && menuToggle) {
+                navLinks.classList.toggle('mobile-open');
+                menuToggle.classList.toggle('open');
+            }
+        }
+
+        // Fonction de déconnexion
+        function logout() {
+            fetch('/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '/';
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors de la déconnexion:', error);
+                window.location.href = '/';
+            });
+        }
+
+        // Animation au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.stat-card, .action-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>

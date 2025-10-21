@@ -1,0 +1,131 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                    📁 IMPORTER VOS FICHIERS 📁                            ║
+║                                                                            ║
+║                    Guide ULTRA SIMPLE !                                   ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+OPTION 1: UTILISER LE SCRIPT AUTOMATISE (RECOMMANDE)
+════════════════════════════════════════════════════════════════════════════
+
+C'est la solution la plus simple !
+
+Windows:
+────────
+1. Double-cliquez sur: deploy.bat
+
+OU ouvrez le terminal et tapez:
+deploy.bat
+
+
+Mac/Linux:
+──────────
+1. Ouvrez le terminal
+2. Allez dans le dossier de votre application:
+   cd /chemin/vers/votre/application
+3. Tapez:
+   bash deploy.sh
+
+
+Le script fera TOUT automatiquement :
+✅ Initialiser Git
+✅ Ajouter vos fichiers
+✅ Créer un commit
+✅ Envoyer vos fichiers vers GitHub
+
+
+OPTION 2: FAIRE MANUELLEMENT (Si le script ne fonctionne pas)
+════════════════════════════════════════════════════════════════════════════
+
+Windows:
+────────
+1. Ouvrez le terminal (cmd ou PowerShell)
+2. Allez dans le dossier de votre application:
+   cd C:\chemin\vers\votre\application
+
+3. Tapez ces commandes une par une:
+
+   git init
+   git add .
+   git commit -m "Déploiement automatisé de Assembl'âge"
+   git branch -M main
+   git remote add origin https://github.com/VOTRE_USERNAME/assemblage.git
+   git push -u origin main
+
+4. Entrez votre nom d'utilisateur GitHub et mot de passe
+
+
+Mac/Linux:
+──────────
+1. Ouvrez le terminal
+2. Allez dans le dossier de votre application:
+   cd /chemin/vers/votre/application
+
+3. Tapez ces commandes une par une:
+
+   git init
+   git add .
+   git commit -m "Déploiement automatisé de Assembl'âge"
+   git branch -M main
+   git remote add origin https://github.com/VOTRE_USERNAME/assemblage.git
+   git push -u origin main
+
+4. Entrez votre nom d'utilisateur GitHub et mot de passe
+
+
+IMPORTANT: REMPLACER VOTRE_USERNAME
+════════════════════════════════════════════════════════════════════════════
+
+Dans la commande:
+git remote add origin https://github.com/VOTRE_USERNAME/assemblage.git
+
+Remplacez "VOTRE_USERNAME" par votre nom d'utilisateur GitHub !
+
+Exemple:
+git remote add origin https://github.com/jean123/assemblage.git
+
+
+VERIFIER QUE LES FICHIERS SONT SUR GITHUB
+════════════════════════════════════════════════════════════════════════════
+
+1. Allez sur: https://github.com/VOTRE_USERNAME/assemblage
+2. Vous devriez voir tous vos fichiers
+3. Si oui, c'est bon ! ✅
+
+
+NOTES IMPORTANTES
+════════════════════════════════════════════════════════════════════════════
+
+⚠️  Assurez-vous d'être dans le bon dossier (celui avec app.py, requirements.txt, etc.)
+
+⚠️  Si vous avez une erreur "fatal: not a git repository", tapez d'abord:
+    git init
+
+⚠️  Si vous avez une erreur "remote origin already exists", tapez:
+    git remote remove origin
+    Puis réessayez
+
+
+APRES AVOIR IMPORTE VOS FICHIERS
+════════════════════════════════════════════════════════════════════════════
+
+1. Allez sur: https://render.com
+2. Connectez-vous avec GitHub
+3. Cliquez sur "New +" puis "Web Service"
+4. Sélectionnez votre dépôt "assemblage"
+5. Configurez et déployez
+
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                  ✅ C'EST TOUT ! C'EST SIMPLE ! ✅                        ║
+║                                                                            ║
+║              Lancez le script ou suivez les commandes manuelles !         ║
+║                                                                            ║
+║                    Bonne chance ! 🚀                                      ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+

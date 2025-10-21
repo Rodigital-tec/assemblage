@@ -1,0 +1,140 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                    💻 COMMANDES EXACTES 💻                                ║
+║                                                                            ║
+║                    Copier-coller ces commandes !                          ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+ETAPE 1: OUVRIR LE TERMINAL
+════════════════════════════════════════════════════════════════════════════
+
+Windows:
+────────
+1. Appuyez sur: Windows + R
+2. Tapez: cmd
+3. Appuyez sur: Entrée
+
+
+Mac:
+────
+1. Appuyez sur: Cmd + Espace
+2. Tapez: terminal
+3. Appuyez sur: Entrée
+
+
+Linux:
+──────
+1. Appuyez sur: Ctrl + Alt + T
+
+
+ETAPE 2: ALLER DANS LE DOSSIER DE VOTRE APPLICATION
+════════════════════════════════════════════════════════════════════════════
+
+Tapez cette commande (remplacez le chemin par le vôtre):
+
+Windows:
+────────
+cd C:\Users\Lenovo\Downloads\Technical Specification Sheet Review (4)
+
+OU si votre dossier est ailleurs:
+cd C:\chemin\vers\votre\dossier
+
+
+Mac/Linux:
+──────────
+cd /Users/votre_nom/chemin/vers/votre/dossier
+
+
+ETAPE 3: INITIALISER GIT
+════════════════════════════════════════════════════════════════════════════
+
+Tapez:
+git init
+
+
+ETAPE 4: AJOUTER VOS FICHIERS
+════════════════════════════════════════════════════════════════════════════
+
+Tapez:
+git add .
+
+
+ETAPE 5: CREER UN COMMIT
+════════════════════════════════════════════════════════════════════════════
+
+Tapez:
+git commit -m "Déploiement automatisé de Assembl'âge"
+
+
+ETAPE 6: RENOMMER LA BRANCHE
+════════════════════════════════════════════════════════════════════════════
+
+Tapez:
+git branch -M main
+
+
+ETAPE 7: AJOUTER LE REMOTE GITHUB
+════════════════════════════════════════════════════════════════════════════
+
+Tapez (remplacez VOTRE_USERNAME par votre nom d'utilisateur GitHub):
+
+git remote add origin https://github.com/VOTRE_USERNAME/assemblage.git
+
+Exemple:
+git remote add origin https://github.com/jean123/assemblage.git
+
+
+ETAPE 8: ENVOYER VOS FICHIERS VERS GITHUB
+════════════════════════════════════════════════════════════════════════════
+
+Tapez:
+git push -u origin main
+
+Vous devrez peut-être entrer votre nom d'utilisateur GitHub et mot de passe.
+
+
+RESUME DES COMMANDES
+════════════════════════════════════════════════════════════════════════════
+
+Voici toutes les commandes à copier-coller:
+
+1. cd C:\Users\Lenovo\Downloads\Technical Specification Sheet Review (4)
+2. git init
+3. git add .
+4. git commit -m "Déploiement automatisé de Assembl'âge"
+5. git branch -M main
+6. git remote add origin https://github.com/VOTRE_USERNAME/assemblage.git
+7. git push -u origin main
+
+
+VERIFIER QUE LES FICHIERS SONT SUR GITHUB
+════════════════════════════════════════════════════════════════════════════
+
+1. Allez sur: https://github.com/VOTRE_USERNAME/assemblage
+2. Vous devriez voir tous vos fichiers
+3. Si oui, c'est bon ! ✅
+
+
+APRES AVOIR IMPORTE VOS FICHIERS
+════════════════════════════════════════════════════════════════════════════
+
+1. Allez sur: https://render.com
+2. Connectez-vous avec GitHub
+3. Cliquez sur "New +" puis "Web Service"
+4. Sélectionnez votre dépôt "assemblage"
+5. Configurez et déployez
+
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                  ✅ C'EST TOUT ! C'EST SIMPLE ! ✅                        ║
+║                                                                            ║
+║              Copiez-collez les commandes et c'est parti !                 ║
+║                                                                            ║
+║                    Bonne chance ! 🚀                                      ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+

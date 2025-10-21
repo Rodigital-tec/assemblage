@@ -1,0 +1,132 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                    🚀 LANCER LE DEPLOIEMENT 🚀                            ║
+║                                                                            ║
+║                    C'EST SUPER SIMPLE !                                   ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+ETAPE 1: CREER LE DEPOT GITHUB
+════════════════════════════════════════════════════════════════════════════
+
+1. Allez sur: https://github.com/new
+2. Remplissez:
+   - Repository name: assemblage
+   - Public: ✓ (IMPORTANT!)
+   - Initialize repository: ☐ (Ne cochez PAS)
+3. Cliquez sur "Create repository"
+
+
+ETAPE 2: LANCER LE SCRIPT DE DEPLOIEMENT
+════════════════════════════════════════════════════════════════════════════
+
+Windows:
+────────
+Double-cliquez sur: deployer.bat
+
+OU ouvrez le terminal et tapez:
+deployer.bat
+
+
+Mac/Linux:
+──────────
+Ouvrez le terminal et tapez:
+bash deployer.sh
+
+
+ETAPE 3: ENTRER VOTRE NOM D'UTILISATEUR GITHUB
+════════════════════════════════════════════════════════════════════════════
+
+Le script vous demandera:
+
+"Entrez votre nom d'utilisateur GitHub: "
+
+Tapez votre nom d'utilisateur (par exemple: jean123)
+
+Le script fera le reste automatiquement ! ✅
+
+
+ETAPE 4: ATTENDRE QUE LE SCRIPT TERMINE
+════════════════════════════════════════════════════════════════════════════
+
+Le script va:
+✅ Initialiser Git
+✅ Ajouter vos fichiers
+✅ Créer un commit
+✅ Envoyer votre code vers GitHub
+
+Attendez que le script affiche:
+"✅ DEPLOIEMENT AUTOMATISE TERMINE !"
+
+
+ETAPE 5: DEPLOYER SUR RENDER
+════════════════════════════════════════════════════════════════════════════
+
+Le script affichera les instructions pour Render.
+
+Suivez-les simplement:
+
+1. Allez sur: https://render.com
+2. Connectez-vous avec GitHub
+3. Cliquez sur "New +" puis "Web Service"
+4. Sélectionnez votre dépôt "assemblage"
+5. Remplissez les champs:
+   - Name: assemblage-app
+   - Build Command: pip install -r requirements.txt
+   - Start Command: gunicorn app:app
+   - Plan: Free
+6. Cliquez sur "Create Web Service"
+7. Attendez 2-3 minutes
+8. Votre app sera accessible à: https://assemblage-app.onrender.com
+
+
+C'EST TOUT !
+════════════════════════════════════════════════════════════════════════════
+
+Votre application est maintenant en ligne ! 🎉
+
+
+TEMPS TOTAL
+════════════════════════════════════════════════════════════════════════════
+
+Créer le dépôt:  2 minutes
+Lancer le script: 5 minutes
+Render:          5 minutes
+Déploiement:     2-3 minutes
+─────────────────────────────
+TOTAL:           14-15 minutes
+
+
+NOTES IMPORTANTES
+════════════════════════════════════════════════════════════════════════════
+
+⚠️  Le dépôt DOIT être PUBLIC
+
+⚠️  Ne cochez PAS "Initialize repository" lors de la création du dépôt
+
+⚠️  Attendez que le script termine avant d'aller sur Render
+
+
+BESOIN D'AIDE ?
+════════════════════════════════════════════════════════════════════════════
+
+Si vous avez des problèmes:
+
+1. Vérifiez que votre dépôt GitHub est PUBLIC
+2. Vérifiez que le fichier Procfile existe
+3. Vérifiez que requirements.txt existe
+4. Consultez les logs de Render
+
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                  ✅ C'EST TOUT ! C'EST SIMPLE ! ✅                        ║
+║                                                                            ║
+║              Lancez deployer.bat (Windows) ou deployer.sh (Mac/Linux)     ║
+║                                                                            ║
+║                    Bonne chance ! 🚀                                      ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+

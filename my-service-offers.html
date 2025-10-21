@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes offres de services - Assembl'âge</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="theme_officiel_exact.css" rel="stylesheet">
+    <link href="header_exact_officiel.css" rel="stylesheet">
+    <link href="header_mobile_improved.css" rel="stylesheet">
+    <link href="icons_svg_monochrome.css" rel="stylesheet">
+    <link href="montserrat_responsive.css" rel="stylesheet">
+    <link href="page_styles.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="mobile_fix.css" rel="stylesheet">
+    <style>
+        .service-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            margin: 0.125rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: white;
+        }
+        
+        .availability-badge {
+            display: inline-block;
+            padding: 0.125rem 0.375rem;
+            margin: 0.125rem;
+            border-radius: 0.25rem;
+            font-size: 0.7rem;
+            background-color: var(--turquoise);
+            color: white;
+        }
+        
+        .offer-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #e9ecef;
+        }
+        
+        .offer-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .status-active {
+            color: var(--vert-lime);
+            font-weight: 600;
+        }
+        
+        .status-inactive {
+            color: #6c757d;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-official">
+        <div class="nav-container-official">
+            <a href="/" class="nav-logo-official">
+                <img src="1000034260.png" alt="Assembl'âge Employeur-Employés" class="logo-image-official">
+            </a>
+            
+            <nav class="nav-links-official">
+                <a href="dashboard.html" class="nav-link-official">Tableau de bord</a>
+                <a href="my-service-offers.html" class="nav-link-official active">Mes offres</a>
+                <a href="search.html" class="nav-link-official">Recherche</a>
+                <a href="messages.html" class="nav-link-official">Messages</a>
+                <a href="profile.html" class="nav-link-official">Mon profil</a>
+            </nav>
+            
+            <div class="nav-user-info">
+                <span class="user-name">Utilisateur</span>
+                <span class="user-badge">Senior</span>
+                <button onclick="logout()" class="logout-btn">Déconnexion</button>
+                <button class="notification-btn"><span class="icon-notification"></span> <span class="notification-count">0</span></button>
+            </div>
+            
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main style="margin-top: 70px;">
+        <!-- Sidebar -->
+    
+        
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- En-tête -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h1 class="h3 mb-0">Mes offres de services</h1>
+                            <p class="text-muted">Gérez vos offres d'aide et services proposés</p>
+                        </div>
+                        <button class="btn btn-primary" onclick="openNewOfferModal()">
+                            <i class="fas fa-plus me-2"></i>
+                            Nouvelle offre
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Liste des offres -->
+            <div class="row" id="offersContainer">
+                <!-- Les offres seront chargées ici -->
+            </div>
+
+            <!-- Message si aucune offre -->
+            <div class="row" id="noOffersMessage" style="display: none;">
+                <div class="col-12">
+                    <div class="text-center py-5">
+                        <i class="fas fa-hand-holding-heart fa-3x text-muted mb-3"></i>
+                        <h4 class="text-muted">Aucune offre de service</h4>
+                        <p class="text-muted">Vous n'avez pas encore créé d'offre de service.</p>
+                        <button class="btn btn-primary" onclick="openNewOfferModal()">
+                            <i class="fas fa-plus me-2"></i>
+                            Créer ma première offre
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let serviceTypes = [];
+        let offers = [];
+
+        // Chargement initial
+        document.addEventListener('DOMContentLoaded', function() {
+            loadServiceTypes();
+            loadOffers();
+        });
+
+        // Charger les types de services
+        async function loadServiceTypes() {
+            try {
+                const response = await fetch('/api/service-types');
+                const data = await response.json();
+                if (data.success) {
+                    serviceTypes = data.service_types;
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des services:', error);
+            }
+        }
+
+        // Charger les offres
+        async function loadOffers() {
+            try {
+                const response = await fetch('/api/my-service-offers');
+                const data = await response.json();
+                if (data.success) {
+                    offers = data.offers;
+                    displayOffers(offers);
+                } else {
+                    showError('Erreur lors du chargement des offres');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                showError('Erreur de connexion au serveur');
+            }
+        }
+
+        // Afficher les offres
+        function displayOffers(offersToShow) {
+            const container = document.getElementById('offersContainer');
+            const noOffersMessage = document.getElementById('noOffersMessage');
+
+            if (offersToShow.length === 0) {
+                container.innerHTML = '';
+                noOffersMessage.style.display = 'block';
+                return;
+            }
+
+            noOffersMessage.style.display = 'none';
+            
+            let html = '';
+            offersToShow.forEach(offer => {
+                const services = offer.services.map(service => 
+                    `<span class="service-badge" style="background-color: ${service.color};">
+                        <i class="${service.icon} me-1"></i>${service.name}
+                    </span>`
+                ).join('');
+
+                const availabilities = [];
+                if (offer.availability_morning) availabilities.push('<span class="availability-badge">Matin</span>');
+                if (offer.availability_afternoon) availabilities.push('<span class="availability-badge">Après-midi</span>');
+                if (offer.availability_evening) availabilities.push('<span class="availability-badge">Soir</span>');
+                if (offer.availability_night) availabilities.push('<span class="availability-badge">Nuit</span>');
+
+                html += `
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card offer-card h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="card-title">${offer.title}</h5>
+                                    <span class="status-${offer.is_active ? 'active' : 'inactive'}">
+                                        <i class="fas fa-circle me-1"></i>
+                                        ${offer.is_active ? 'Active' : 'Inactive'}
+                                    </span>
+                                </div>
+                                <p class="card-text text-muted">${offer.description}</p>
+                                <div class="mb-2">
+                                    <small class="text-muted">Services :</small><br>
+                                    ${services}
+                                </div>
+                                <div class="mb-2">
+                                    <small class="text-muted">
+                                        <i class="fas fa-map-marker-alt me-1"></i>
+                                        ${offer.location}
+                                    </small>
+                                </div>
+                                ${offer.hourly_rate ? `
+                                    <div class="mb-2">
+                                        <small class="text-muted">
+                                            <i class="fas fa-coins me-1"></i>
+                                            ${offer.hourly_rate} CHF/heure
+                                        </small>
+                                    </div>
+                                ` : ''}
+                                <div class="mb-3">
+                                    <small class="text-muted">Disponibilités :</small><br>
+                                    ${availabilities.join('')}
+                                </div>
+                            </div>
+                            <div class="card-footer text-muted">
+                                <small>Créée le ${new Date(offer.created_at).toLocaleDateString('fr-FR')}</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Ouvrir modal nouvelle offre
+        function openNewOfferModal() {
+            // Rediriger vers le dashboard pour utiliser la modal existante
+            window.location.href = 'dashboard.html#newOffer';
+        }
+
+        // Fonctions utilitaires
+        function showError(message) {
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-danger alert-dismissible fade show position-fixed';
+            alert.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            alert.innerHTML = `
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 5000);
+        }
+
+        function contactAdmin() {
+            alert('Fonctionnalité de contact admin - À implémenter');
+        }
+    </script>
+    </main>
+    
+    <script src="navigation_fixed.js"></script>
+    <script>
+        let serviceTypes = [];
+        let offers = [];
+
+        // Chargement initial
+        document.addEventListener('DOMContentLoaded', function() {
+            loadServiceTypes();
+            loadOffers();
+        });
+
+        // Charger les types de services
+        async function loadServiceTypes() {
+            try {
+                const response = await fetch('/api/service-types');
+                const data = await response.json();
+                if (data.success) {
+                    serviceTypes = data.service_types;
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des services:', error);
+            }
+        }
+
+        // Charger les offres
+        async function loadOffers() {
+            try {
+                const response = await fetch('/api/my-service-offers');
+                const data = await response.json();
+                if (data.success) {
+                    offers = data.offers;
+                    displayOffers(offers);
+                } else {
+                    showError('Erreur lors du chargement des offres');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                showError('Erreur de connexion au serveur');
+            }
+        }
+
+        // Afficher les offres
+        function displayOffers(offersToShow) {
+            const container = document.getElementById('offersContainer');
+            const noOffersMessage = document.getElementById('noOffersMessage');
+
+            if (offersToShow.length === 0) {
+                container.innerHTML = '';
+                noOffersMessage.style.display = 'block';
+                return;
+            }
+
+            noOffersMessage.style.display = 'none';
+            
+            let html = '';
+            offersToShow.forEach(offer => {
+                const services = offer.services.map(service => 
+                    `<span class="service-badge" style="background-color: ${service.color};">
+                        <i class="${service.icon} me-1"></i>${service.name}
+                    </span>`
+                ).join('');
+
+                const availabilities = [];
+                if (offer.availability_morning) availabilities.push('<span class="availability-badge">Matin</span>');
+                if (offer.availability_afternoon) availabilities.push('<span class="availability-badge">Après-midi</span>');
+                if (offer.availability_evening) availabilities.push('<span class="availability-badge">Soir</span>');
+                if (offer.availability_night) availabilities.push('<span class="availability-badge">Nuit</span>');
+
+                html += `
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card offer-card h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="card-title">${offer.title}</h5>
+                                    <span class="status-${offer.is_active ? 'active' : 'inactive'}">
+                                        <i class="fas fa-circle me-1"></i>
+                                        ${offer.is_active ? 'Active' : 'Inactive'}
+                                    </span>
+                                </div>
+                                <p class="card-text text-muted">${offer.description}</p>
+                                <div class="mb-2">
+                                    <small class="text-muted">Services :</small><br>
+                                    ${services}
+                                </div>
+                                <div class="mb-2">
+                                    <small class="text-muted">
+                                        <i class="fas fa-map-marker-alt me-1"></i>
+                                        ${offer.location}
+                                    </small>
+                                </div>
+                                ${offer.hourly_rate ? `
+                                    <div class="mb-2">
+                                        <small class="text-muted">
+                                            <i class="fas fa-coins me-1"></i>
+                                            ${offer.hourly_rate} CHF/heure
+                                        </small>
+                                    </div>
+                                ` : ''}
+                                <div class="mb-3">
+                                    <small class="text-muted">Disponibilités :</small><br>
+                                    ${availabilities.join('')}
+                                </div>
+                            </div>
+                            <div class="card-footer text-muted">
+                                <small>Créée le ${new Date(offer.created_at).toLocaleDateString('fr-FR')}</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Ouvrir modal nouvelle offre
+        function openNewOfferModal() {
+            // Rediriger vers le dashboard pour utiliser la modal existante
+            window.location.href = 'dashboard.html#newOffer';
+        }
+
+        // Fonctions utilitaires
+        function showError(message) {
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-danger alert-dismissible fade show position-fixed';
+            alert.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            alert.innerHTML = `
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 5000);
+        }
+
+        function contactAdmin() {
+            alert('Fonctionnalité de contact admin - À implémenter');
+        }
+
+        // Fonction de déconnexion
+        function logout() {
+            // Effacer toutes les données de session locale
+            localStorage.removeItem('isAuthenticated');
+            localStorage.removeItem('userType');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userEmail');
+            sessionStorage.clear();
+            
+            // Appeler l'API de déconnexion
+            fetch('/api/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Rediriger vers la page de connexion
+                window.location.href = '/login.html';
+            })
+            .catch(error => {
+                console.error('Erreur lors de la déconnexion:', error);
+                // Rediriger quand même vers la page de connexion
+                window.location.href = '/login.html';
+            });
+        }
+
+        // Fonction pour le menu burger mobile
+        function toggleMobileMenu() {
+            let mobileMenu = document.querySelector('.mobile-menu');
+            
+            if (!mobileMenu) {
+                // Créer le menu mobile s'il n'existe pas
+                mobileMenu = document.createElement('div');
+                mobileMenu.className = 'mobile-menu';
+                mobileMenu.innerHTML = `
+                    <a href="dashboard.html">Tableau de bord</a>
+                    <a href="my-service-offers.html" class="active">Mes offres</a>
+                    <a href="search.html">Recherche</a>
+                    <a href="messages.html">Messages</a>
+                    <a href="profile.html">Mon profil</a>
+                    <div class="mobile-user-info">
+                        <div class="mobile-user-badge">Senior</div>
+                        <button onclick="logout()" class="mobile-logout-btn">Déconnexion</button>
+                        <button class="mobile-notification-btn"><span class="icon-notification"></span> Notifications (0)</button>
+                    </div>
+                `;
+                document.body.appendChild(mobileMenu);
+            }
+            
+            mobileMenu.classList.toggle('active');
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+INSTRUCTIONS POUR AJOUTER LES BOUTONS DE MODÉRATION:
+
+1. Dans la fonction createMessageElement(), après la section des réactions, ajouter:
+
+// Bouton signaler (seulement pour les messages reçus)
+if (message.sender !== 'me') {
+    const reportBtn = document.createElement('button');
+    reportBtn.className = 'message-report-btn';
+    reportBtn.innerHTML = '<i class="fas fa-flag"></i> Signaler';
+    reportBtn.title = 'Signaler ce message';
+    reportBtn.onclick = (e) => {
+        e.stopPropagation();
+        showReportMessageModal(message.id);
+    };
+    reportBtn.style.cssText = `
+        background: transparent;
+        border: 1px solid #dc3545;
+        color: #dc3545;
+        padding: 0.3rem 0.6rem;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        cursor: pointer;
+        margin-top: 0.5rem;
+        transition: all 0.3s ease;
+        font-family: 'Montserrat', sans-serif;
+    `;
+    reportBtn.onmouseover = () => {
+        reportBtn.style.background = '#dc3545';
+        reportBtn.style.color = 'white';
+    };
+    reportBtn.onmouseout = () => {
+        reportBtn.style.background = 'transparent';
+        reportBtn.style.color = '#dc3545';
+    };
+    content.appendChild(reportBtn);
+}
+
+2. Dans le chat-header, après les boutons d'action existants, ajouter:
+
+<button class="chat-action-btn" title="Bloquer cet utilisateur" onclick="showBlockUserModal(currentConversation, conversations[currentConversation].name)" style="color: #dc3545;">
+    <i class="fas fa-ban"></i>
+</button>
+
+3. Ajouter le style pour btn-danger dans les styles:
+
+.btn-danger {
+    background: linear-gradient(135deg, #dc3545, #c82333) !important;
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #c82333, #bd2130) !important;
+}

@@ -1,0 +1,264 @@
+/* CSS spécifique pour forcer l'affichage du header sur mobile */
+
+/* Forcer l'affichage du header */
+.header-official {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 60px !important;
+    background: white !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+    z-index: 1000 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Container de navigation */
+.nav-container-official {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    height: 100% !important;
+    width: 100% !important;
+    padding: 0 10px !important;
+    box-sizing: border-box !important;
+}
+
+/* Logo */
+.nav-logo-official {
+    display: flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+}
+
+.logo-image-official {
+    height: 40px !important;
+    width: auto !important;
+    display: block !important;
+}
+
+/* Navigation desktop */
+.nav-links-official {
+    display: none !important;
+    flex: 1 !important;
+    justify-content: center !important;
+    gap: 20px !important;
+}
+
+.nav-link-official {
+    color: #00A0B0 !important;
+    text-decoration: none !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    padding: 8px 16px !important;
+    border-radius: 4px !important;
+    transition: color 0.2s ease !important;
+}
+
+.nav-link-official:hover {
+    color: #666666 !important;
+}
+
+.nav-link-official.active {
+    color: #9ACD32 !important;
+}
+
+/* Informations utilisateur */
+.nav-user-info {
+    display: none !important;
+    align-items: center !important;
+    gap: 10px !important;
+    flex: 0 0 auto !important;
+}
+
+.user-name {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 13px !important;
+    color: #333 !important;
+}
+
+.user-badge {
+    background: #00A0B0 !important;
+    color: white !important;
+    padding: 4px 8px !important;
+    border-radius: 12px !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+}
+
+.logout-btn {
+    background: #dc3545 !important;
+    color: white !important;
+    border: none !important;
+    padding: 6px 12px !important;
+    border-radius: 4px !important;
+    font-size: 12px !important;
+    cursor: pointer !important;
+}
+
+.notification-btn {
+    background: none !important;
+    border: none !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
+}
+
+/* Menu burger mobile */
+.mobile-menu-toggle {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 30px !important;
+    height: 30px !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.mobile-menu-toggle span {
+    display: block !important;
+    width: 25px !important;
+    height: 3px !important;
+    background-color: #00A0B0 !important;
+    margin: 3px 0 !important;
+    transition: 0.3s !important;
+}
+
+/* Responsive - Desktop */
+@media (min-width: 769px) {
+    .nav-links-official {
+        display: flex !important;
+    }
+    
+    .nav-user-info {
+        display: flex !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .nav-links-official {
+        display: none !important;
+    }
+    
+    .nav-user-info {
+        display: none !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex !important;
+    }
+}
+
+/* Menu mobile ouvert - Style similaire au desktop */
+.mobile-menu {
+    position: fixed !important;
+    top: 60px !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: white !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+    z-index: 999 !important;
+    display: none !important;
+    flex-direction: column !important;
+    padding: 15px 20px !important;
+    gap: 5px !important;
+}
+
+.mobile-menu.active {
+    display: flex !important;
+}
+
+.mobile-menu a {
+    color: #00A0B0 !important;
+    text-decoration: none !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    padding: 12px 16px !important;
+    border-radius: 4px !important;
+    background: transparent !important;
+    border: none !important;
+    transition: all 0.2s ease !important;
+    text-align: left !important;
+}
+
+.mobile-menu a:hover {
+    color: #666666 !important;
+    background: #f8f9fa !important;
+}
+
+.mobile-menu a.active {
+    color: #9ACD32 !important;
+    background: #f0f8e8 !important;
+}
+
+/* Boutons spéciaux dans le menu mobile */
+.mobile-menu .mobile-user-info {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    padding: 15px 0 !important;
+    border-top: 1px solid #f0f0f0 !important;
+    margin-top: 10px !important;
+}
+
+.mobile-menu .mobile-user-badge {
+    background: #00A0B0 !important;
+    color: white !important;
+    padding: 6px 12px !important;
+    border-radius: 12px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    width: fit-content !important;
+}
+
+.mobile-menu .mobile-logout-btn {
+    background: #dc3545 !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 16px !important;
+    border-radius: 4px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    transition: background 0.2s ease !important;
+}
+
+.mobile-menu .mobile-logout-btn:hover {
+    background: #c82333 !important;
+}
+
+.mobile-menu .mobile-notification-btn {
+    background: #f8f9fa !important;
+    border: 1px solid #e0e0e0 !important;
+    padding: 10px 16px !important;
+    border-radius: 4px !important;
+    font-size: 13px !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    transition: all 0.2s ease !important;
+}
+
+.mobile-menu .mobile-notification-btn:hover {
+    background: #e9ecef !important;
+}
+
+/* Ajustement du contenu pour le header fixe */
+body {
+    padding-top: 60px !important;
+}

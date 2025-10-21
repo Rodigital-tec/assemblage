@@ -1,0 +1,189 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                    🚀 GUIDE COMPLET DE DEPLOIEMENT 🚀                     ║
+║                                                                            ║
+║                    Assembl'âge sur Render                                 ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+ETAPE 1: CREER UN DEPOT GITHUB
+════════════════════════════════════════════════════════════════════════════
+
+1. Allez sur: https://github.com/new
+
+2. Remplissez:
+   Repository name:        assemblage
+   Description:            Application Assembl'âge
+   Public:                 ✓ (IMPORTANT!)
+   Initialize repository:  ☐ (Ne cochez PAS)
+
+3. Cliquez sur "Create repository"
+
+4. Vous verrez une page avec l'URL:
+   https://github.com/VOTRE_USERNAME/assemblage.git
+
+
+ETAPE 2: LANCER LE SCRIPT DE DEPLOIEMENT
+════════════════════════════════════════════════════════════════════════════
+
+Windows:
+────────
+Double-cliquez sur: deploy.bat
+
+OU ouvrez le terminal et tapez:
+deploy.bat
+
+
+Mac/Linux:
+──────────
+Ouvrez le terminal et tapez:
+bash deploy.sh
+
+
+ETAPE 3: ENTRER VOTRE NOM D'UTILISATEUR GITHUB
+════════════════════════════════════════════════════════════════════════════
+
+Le script vous demandera:
+
+"Entrez votre nom d'utilisateur GitHub: "
+
+Tapez votre nom d'utilisateur (par exemple: jean123)
+
+Le script fera le reste automatiquement !
+
+
+ETAPE 4: ATTENDRE QUE LE SCRIPT TERMINE
+════════════════════════════════════════════════════════════════════════════
+
+Le script va:
+✅ Initialiser Git
+✅ Ajouter vos fichiers
+✅ Créer un commit
+✅ Envoyer votre code vers GitHub
+
+Attendez que le script affiche:
+"✅ Déploiement automatisé terminé !"
+
+
+ETAPE 5: VERIFIER QUE LE CODE EST SUR GITHUB
+════════════════════════════════════════════════════════════════════════════
+
+1. Allez sur: https://github.com/VOTRE_USERNAME/assemblage
+2. Vous devriez voir tous vos fichiers
+3. Si oui, c'est bon ! ✅
+
+
+ETAPE 6: CREER UN COMPTE RENDER
+════════════════════════════════════════════════════════════════════════════
+
+1. Allez sur: https://render.com
+2. Cliquez sur "Sign up"
+3. Connectez-vous avec GitHub
+4. Autorisez Render à accéder à vos dépôts
+
+
+ETAPE 7: CREER UN WEB SERVICE
+════════════════════════════════════════════════════════════════════════════
+
+1. Cliquez sur "New +"
+2. Sélectionnez "Web Service"
+3. Vous devriez voir votre dépôt "assemblage" dans la liste
+4. Cliquez sur "Connect"
+
+
+ETAPE 8: CONFIGURER LE SERVICE
+════════════════════════════════════════════════════════════════════════════
+
+Remplissez les champs:
+
+Name:                    assemblage-app
+Environment:             Python 3
+Region:                  Frankfurt (EU Central)
+Branch:                  main
+Build Command:           pip install -r requirements.txt
+Start Command:           gunicorn app:app
+Plan:                    Free
+
+
+ETAPE 9: AJOUTER LES VARIABLES D'ENVIRONNEMENT
+════════════════════════════════════════════════════════════════════════════
+
+1. Cliquez sur "Advanced"
+2. Ajoutez les variables:
+
+   FLASK_ENV               production
+   SECRET_KEY              your_secret_key_here_12345
+
+
+ETAPE 10: CREER LE SERVICE
+════════════════════════════════════════════════════════════════════════════
+
+1. Cliquez sur "Create Web Service"
+2. Attendez 2-3 minutes
+3. Vous verrez "Your service is live"
+
+
+ETAPE 11: ACCEDER A VOTRE APP
+════════════════════════════════════════════════════════════════════════════
+
+Votre application sera accessible à :
+
+    https://assemblage-app.onrender.com
+
+
+C'EST TOUT !
+════════════════════════════════════════════════════════════════════════════
+
+Votre application est maintenant en ligne ! 🎉
+
+
+TEMPS TOTAL
+════════════════════════════════════════════════════════════════════════════
+
+Étape 1 (GitHub):    2 minutes
+Étape 2-4 (Script):  5 minutes
+Étape 5 (Vérif):     1 minute
+Étape 6-11 (Render): 5 minutes
+Déploiement:         2-3 minutes
+─────────────────────────────
+TOTAL:               15-16 minutes
+
+
+NOTES IMPORTANTES
+════════════════════════════════════════════════════════════════════════════
+
+⚠️  Le dépôt DOIT être PUBLIC
+
+⚠️  Ne cochez PAS "Initialize repository" lors de la création du dépôt
+
+⚠️  Attendez que le script termine avant d'aller sur Render
+
+⚠️  Le plan gratuit de Render a des limitations:
+    - L'app s'arrête après 15 min d'inactivité
+    - 0.5 GB de RAM
+    - SQLite n'est pas persistant
+
+
+BESOIN D'AIDE ?
+════════════════════════════════════════════════════════════════════════════
+
+Si vous avez des problèmes:
+
+1. Vérifiez que votre dépôt GitHub est PUBLIC
+2. Vérifiez que le fichier Procfile existe
+3. Vérifiez que requirements.txt existe
+4. Consultez les logs de Render
+
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                  ✅ C'EST TOUT ! C'EST SIMPLE ! ✅                        ║
+║                                                                            ║
+║              Suivez les 11 étapes et votre app sera en ligne !            ║
+║                                                                            ║
+║                    Bonne chance ! 🚀                                      ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
