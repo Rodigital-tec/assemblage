@@ -273,26 +273,33 @@ def admin_users():
 with app.app_context():
     # Créer le dossier uploads s'il n'existe pas
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-    
-    # Créer toutes les tables
-    db.create_all()
-    
+
+    # Créer toutes les tables (avec gestion d'erreur pour Render)
+    try:
+        db.create_all()
+    except Exception as e:
+        print(f"Warning: Could not create database tables: {e}")
+        print("This is normal on Render with SQLite. Consider using PostgreSQL for production.")
+
     # Créer un utilisateur admin par défaut s'il n'existe pas
-    admin_user = User.query.filter_by(email='admin@assemblage.ch').first()
-    if not admin_user:
-        admin_user = User(
-            email='admin@assemblage.ch',
-            password_hash=hash_password('admin123'),
-            first_name='Admin',
-            last_name='Assemblage',
-            user_type='admin',
-            is_active=True,
-            email_verified=True
-        )
-        db.session.add(admin_user)
-        db.session.commit()
-        print("Utilisateur admin créé: admin@assemblage.ch / admin123")
-    
+    try:
+        admin_user = User.query.filter_by(email='admin@assemblage.ch').first()
+        if not admin_user:
+            admin_user = User(
+                email='admin@assemblage.ch',
+                password_hash=hash_password('admin123'),
+                first_name='Admin',
+                last_name='Assemblage',
+                user_type='admin',
+                is_active=True,
+                email_verified=True
+            )
+            db.session.add(admin_user)
+            db.session.commit()
+            print("Utilisateur admin créé: admin@assemblage.ch / admin123")
+    except Exception as e:
+        print(f"Warning: Could not create admin user: {e}")
+
     # Charger la configuration SMTP
     try:
         smtp_config = SMTPConfig.query.first()
