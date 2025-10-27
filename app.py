@@ -7,23 +7,97 @@ from dotenv import load_dotenv
 from flask import Flask, send_from_directory, request, jsonify, session, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
 
 # Charger les variables d'environnement
 load_dotenv()
 
-# Import des modèles
-from models import db, User, SMTPConfig, HelpRequest
-from routes.auth_simple import auth_bp
-from routes.auth_working import auth_working_bp
-from routes.service_types import service_types_bp
-from routes.help_requests import help_requests_bp
-from routes.help_requests_simple import help_requests_simple_bp
-from routes.service_offers import service_offers_bp
-from routes.user_profile import user_profile_bp
-from routes.user_profile_api import user_profile_bp as user_profile_api_bp
-from routes.messages import messages_bp
-from routes.admin_api import admin_api_bp
-from routes.init_db import init_bp
+# Initialize database
+db = SQLAlchemy()
+
+# Simple User model
+class User(db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
+    first_name = db.Column(db.String(255))
+    last_name = db.Column(db.String(255))
+    user_type = db.Column(db.String(50), default='user')
+    is_active = db.Column(db.Boolean, default=True)
+    email_verified = db.Column(db.Boolean, default=False)
+
+class SMTPConfig(db.Model):
+    __tablename__ = 'smtp_config'
+    id = db.Column(db.Integer, primary_key=True)
+    smtp_server = db.Column(db.String(255))
+    smtp_port = db.Column(db.Integer)
+    smtp_username = db.Column(db.String(255))
+    smtp_password = db.Column(db.String(255))
+    use_tls = db.Column(db.Boolean, default=True)
+
+class HelpRequest(db.Model):
+    __tablename__ = 'help_requests'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(255))
+    description = db.Column(db.Text)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+# Try to import routes, but don't fail if they don't exist
+try:
+    from routes.auth_simple import auth_bp
+except ImportError:
+    auth_bp = None
+
+try:
+    from routes.auth_working import auth_working_bp
+except ImportError:
+    auth_working_bp = None
+
+try:
+    from routes.service_types import service_types_bp
+except ImportError:
+    service_types_bp = None
+
+try:
+    from routes.help_requests import help_requests_bp
+except ImportError:
+    help_requests_bp = None
+
+try:
+    from routes.help_requests_simple import help_requests_simple_bp
+except ImportError:
+    help_requests_simple_bp = None
+
+try:
+    from routes.service_offers import service_offers_bp
+except ImportError:
+    service_offers_bp = None
+
+try:
+    from routes.user_profile import user_profile_bp
+except ImportError:
+    user_profile_bp = None
+
+try:
+    from routes.user_profile_api import user_profile_bp as user_profile_api_bp
+except ImportError:
+    user_profile_api_bp = None
+
+try:
+    from routes.messages import messages_bp
+except ImportError:
+    messages_bp = None
+
+try:
+    from routes.admin_api import admin_api_bp
+except ImportError:
+    admin_api_bp = None
+
+try:
+    from routes.init_db import init_bp
+except ImportError:
+    init_bp = None
 
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
 
@@ -435,18 +509,29 @@ def update_profile_by_email(email):
         db.session.rollback()
         return jsonify({'success': False, 'error': str(e)}), 500
 
-# Enregistrement des blueprints
-app.register_blueprint(auth_bp, url_prefix='/api/auth')
-app.register_blueprint(auth_working_bp)
-app.register_blueprint(service_types_bp)
-app.register_blueprint(help_requests_bp)
-app.register_blueprint(help_requests_simple_bp)
-app.register_blueprint(service_offers_bp)
-app.register_blueprint(user_profile_bp)
-app.register_blueprint(user_profile_api_bp)
-app.register_blueprint(messages_bp)
-app.register_blueprint(admin_api_bp)
-app.register_blueprint(init_bp)
+# Enregistrement des blueprints (seulement si disponibles)
+if auth_bp:
+    app.register_blueprint(auth_bp, url_prefix='/api/auth')
+if auth_working_bp:
+    app.register_blueprint(auth_working_bp)
+if service_types_bp:
+    app.register_blueprint(service_types_bp)
+if help_requests_bp:
+    app.register_blueprint(help_requests_bp)
+if help_requests_simple_bp:
+    app.register_blueprint(help_requests_simple_bp)
+if service_offers_bp:
+    app.register_blueprint(service_offers_bp)
+if user_profile_bp:
+    app.register_blueprint(user_profile_bp)
+if user_profile_api_bp:
+    app.register_blueprint(user_profile_api_bp)
+if messages_bp:
+    app.register_blueprint(messages_bp)
+if admin_api_bp:
+    app.register_blueprint(admin_api_bp)
+if init_bp:
+    app.register_blueprint(init_bp)
 
 # Import et enregistrement du nouveau blueprint profile_api
 try:

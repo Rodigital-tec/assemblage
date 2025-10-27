@@ -1,11 +1,12 @@
 import os
 import sys
 
-# Ajouter le répertoire src au path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+# Ajouter le répertoire courant au path
+sys.path.insert(0, os.path.dirname(__file__))
 
-from main import app
+# Importer l'app depuis app.py
+from app import app
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8000)
+    app.run(host='0.0.0.0', port=5000)
 
